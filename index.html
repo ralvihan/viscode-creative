@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Viscode Creative — Design. Develop. Innovate.</title>
+<meta name="description" content="Viscode Creative: jasa pengembangan website, desain grafis, serta ID card dan event untuk individu, UMKM, organisasi, dan penyelenggara acara.">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<meta name="theme-color" content="#0a1a3c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="lgNavy" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1b3a82"/>
+      <stop offset="1" stop-color="#061230"/>
+    </linearGradient>
+    <linearGradient id="lgBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#92bcf8"/>
+      <stop offset="1" stop-color="#3f86f0"/>
+    </linearGradient>
+    <symbol id="spark" viewBox="0 0 24 24">
+      <path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10z" fill="currentColor"/>
+    </symbol>
+    <symbol id="check" viewBox="0 0 24 24">
+      <path d="M5 12.5l4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="check-c" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M8 12.4l2.7 2.7L16 9.6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="target" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="12" cy="12" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+    </symbol>
+    <symbol id="arrow" viewBox="0 0 24 24">
+      <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="image" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="16" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/>
+      <circle cx="9" cy="10" r="1.8" fill="currentColor"/>
+      <path d="M4 18l5-5 4 4 3-3 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+</svg>
+
+<header class="nav-wrap" id="navWrap">
+  <nav class="nav" id="nav">
+    <a href="#top" class="brand" aria-label="Viscode Creative">
+      <img class="brand-mark" src="assets/logo.png" alt="Viscode Creative" style="height:44px;width:auto;object-fit:contain">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features" data-i18n="nav.features">Layanan</a></li>
+      <li><a href="#process" data-i18n="nav.process">Proses</a></li>
+      <li><a href="#portfolio" data-i18n="nav.portfolio">Portofolio</a></li>
+      <li><a href="#pricing" data-i18n="nav.pricing">Harga</a></li>
+      <li><a href="#download" data-i18n="nav.contact">Kontak</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="id" class="active">ID</button>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a href="#download" data-wa class="nav-cta" data-i18n="nav.cta">Konsultasi</a>
+      <button type="button" class="menu-btn" id="menuBtn" aria-label="Menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#features" data-i18n="nav.features">Layanan</a>
+    <a href="#process" data-i18n="nav.process">Proses</a>
+    <a href="#portfolio" data-i18n="nav.portfolio">Portofolio</a>
+    <a href="#pricing" data-i18n="nav.pricing">Harga</a>
+    <a href="#download" data-i18n="nav.contact">Kontak</a>
+    <a href="#download" data-wa class="m-cta" data-i18n="nav.cta">Konsultasi</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="sky"></div>
+    <div class="glow"></div>
+    <div class="cloud cloud-back"></div>
+    <div class="cloud cloud-mid"></div>
+
+    <div class="hero-inner">
+      <h1 class="hero-title reveal">
+        <span class="ht-line ht-l1" data-i18n="hero.l1">Wujudkan idemu jadi</span>
+        <span class="ht-line ht-l2">
+          <span class="hp" id="hpill" aria-hidden="true"><svg class="hp-i on" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 7L4 12l4.5 5M15.5 7L20 12l-4.5 5M13.5 5l-3 14"/></svg><svg class="hp-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l5 8-5 10-5-10z"/><circle cx="12" cy="11" r="1.4"/><path d="M12 12.4V21"/></svg><svg class="hp-i" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l9 5-9 5-9-5z"/><path d="M3 13l9 5 9-5"/></svg><svg class="hp-i" viewBox="0 0 24 24" aria-hidden="true"><rect x="4.5" y="3" width="15" height="18" rx="3"/><circle cx="12" cy="10" r="2.4"/><path d="M8 17c.8-2 2.2-3 4-3s3.2 1 4 3"/></svg><svg class="hp-i" viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="3"/><path d="M3.5 10h17M8 3v4M16 3v4"/></svg></span>
+          <span class="rw" id="rw">
+            <span class="rw-box"><span class="rw-words" id="rwWords"><span class="rw-w is-on">website</span></span></span>
+            <i class="rw-h a"></i><i class="rw-h b"></i><i class="rw-h c"></i><i class="rw-h d"></i>
+          </span>
+        </span>
+        <span class="ht-line ht-l3" data-i18n="hero.l3">yang berkesan</span>
+      </h1>
+      <nav class="hero-svc reveal" aria-label="Layanan">
+        <a href="#features"><span data-i18n="hero.s1">Website</span><svg><use href="#arrow"/></svg></a>
+        <a href="#features"><span data-i18n="hero.s2">Desain Grafis</span><svg><use href="#arrow"/></svg></a>
+        <a href="#features"><span data-i18n="hero.s3">ID Card &amp; Event</span><svg><use href="#arrow"/></svg></a>
+      </nav>
+    </div>
+
+    <div class="hero-laptop-wrap">
+      <div class="laptop laptop-hero">
+        <div class="lid">
+          <span class="lcam"></span>
+          <div class="lscreen">
+            <div class="lbar"><i></i><i></i><i></i><span class="lurl">websitemu.com</span></div>
+            <div class="lsite">
+              <div class="ls-nav">
+                <b class="ls-logo"></b>
+                <span class="ls-links"><i></i><i></i><i></i></span>
+                <em class="ls-btn"></em>
+              </div>
+              <div class="ls-hero">
+                <div class="ls-copy">
+                  <div class="ls-h" data-i18n="ph.h">Bisnismu tampil lebih profesional</div>
+                  <div class="ls-p" data-i18n="ph.p">Website cepat, rapi, dan siap dikunjungi pelanggan kapan saja.</div>
+                  <span class="ls-cta" data-i18n="ph.btn">Lihat produk</span>
+                </div>
+                <div class="ls-art"><span class="blob b1"></span><span class="blob b2"></span><img class="ls-mark" src="assets/logo.png" alt="Viscode Creative"></div>
+              </div>
+              <div class="ls-cards"><div></div><div></div><div></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="lbase"></div>
+      </div>
+    </div>
+
+    <div class="cloud cloud-front"></div>
+    <div class="hero-fade"></div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap-narrow">
+      <h2 class="about-text reveal" data-i18n="about.text" data-html>Kami membantu individu, UMKM, organisasi, dan penyelenggara acara <span class="scribble"><span class="scr-word">tampil</span><svg class="scr-svg" viewBox="0 0 200 80" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M32 15C84 1 172 5 191 33C206 62 122 77 60 70C13 65 -3 40 22 22C42 8 92 5 136 8"/></svg></span> lebih baik. Pengembangan website dan desain grafis hadir dalam satu tempat, sesuai kebutuhan dan anggaranmu.</h2>
+      <div class="stats reveal">
+        <div class="stat"><div class="stat-n">3</div><div class="stat-l" data-i18n="about.s1">Layanan utama kreatif</div></div>
+        <div class="stat"><div class="stat-n">360°</div><div class="stat-l" data-i18n="about.s2">Solusi digital menyeluruh</div></div>
+        <div class="stat"><div class="stat-n" data-i18n="about.v3">1 tempat</div><div class="stat-l" data-i18n="about.s3">Semua kebutuhan kreatifmu</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="vm" id="vision">
+    <div class="wrap vm-grid">
+      <article class="vcard dark reveal">
+        <span class="vico"><svg width="26" height="26"><use href="#target"/></svg></span>
+        <h3 data-i18n="vm.visi">Visi</h3>
+        <p data-i18n="vm.visi.t">Menjadi partner digital terpercaya yang menggabungkan teknologi dan seni.</p>
+      </article>
+      <article class="vcard reveal">
+        <span class="vico"><svg width="26" height="26"><use href="#arrow"/></svg></span>
+        <h3 data-i18n="vm.misi">Misi</h3>
+        <p data-i18n="vm.misi.t">Memberikan layanan web dan desain kreatif yang inovatif, fleksibel, dan berkualitas.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="features" id="features">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2 reveal" data-i18n="feat.title">Semua yang kamu butuhkan untuk tampil di dunia digital</h2>
+        <p class="lead reveal" data-i18n="feat.sub">Layanan kami dirancang fleksibel supaya cocok untuk kebutuhan dan anggaran yang berbeda-beda.</p>
+      </div>
+
+      <div class="feat-grid">
+        <article class="fcard b-web reveal">
+          <div class="b-text">
+            <h3 data-i18n="f1.t">Pengembangan Website</h3>
+            <p data-i18n="f1.d">Landing page, website profil perusahaan, website UMKM, katalog produk, portofolio digital, hingga website acara.</p>
+          </div>
+          <div class="fpop pop-web" aria-hidden="true">
+            <div class="sheet s-a"></div>
+            <div class="sheet s-b"></div>
+            <div class="sheet s-c"><span class="code">&lt;/&gt;</span><i></i><i></i><i class="short"></i><i></i><i class="short"></i></div>
+          </div>
+        </article>
+
+        <article class="fcard b-design reveal">
+          <div class="b-text">
+            <h3 data-i18n="f2.t">Desain Grafis</h3>
+            <p data-i18n="f2.d">Logo dan branding, poster dan banner, konten media sosial, serta brosur dan flyer yang konsisten dan memorable.</p>
+          </div>
+          <div class="fart" aria-hidden="true">
+            <div class="swatch sw1"></div>
+            <div class="swatch sw2"></div>
+            <div class="swatch sw3"></div>
+          </div>
+          <div class="fpop pop-spark" aria-hidden="true"><svg width="26" height="26"><use href="#spark"/></svg></div>
+        </article>
+
+        <article class="fcard b-id reveal">
+          <div class="b-text">
+            <h3 data-i18n="f3.t">ID Card &amp; Event</h3>
+            <p data-i18n="f3.d">Kartu identitas, ID card panitia, materi publikasi acara, dan koordinasi cetak dengan vendor.</p>
+          </div>
+          <div class="fart" aria-hidden="true">
+            <div class="idc idc-a"><span class="idc-photo"></span><i></i><i class="short"></i></div>
+            <div class="idc idc-b"><span class="idc-photo"></span><i></i><i class="short"></i></div>
+          </div>
+        </article>
+
+        <article class="fcard b-budget reveal">
+          <div class="b-text">
+            <h3 data-i18n="f4.t">Fleksibel Sesuai Anggaran</h3>
+            <p data-i18n="f4.d">Pilih layanan satuan, paket bundling, atau minta layanan tambahan khusus, dengan harga transparan sejak awal.</p>
+          </div>
+          <div class="sliders" aria-hidden="true">
+            <div class="sl"><span class="sl-t"><b style="--w:30%"></b></span><i style="--w:30%"></i></div>
+            <div class="sl"><span class="sl-t"><b style="--w:68%"></b></span><i style="--w:68%"></i></div>
+            <div class="sl"><span class="sl-t"><b style="--w:48%"></b></span><i style="--w:48%"></i></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="market" id="market">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2 reveal" data-i18n="mk.title">Dibuat untuk Siapa Saja yang Ingin Tampil</h2>
+        <p class="lead reveal" data-i18n="mk.sub">Dari usaha lokal sampai penyelenggara acara, kami siap membantu kebutuhan digitalmu.</p>
+      </div>
+      <div class="market-grid">
+        <article class="mcard reveal">
+          <span class="mnum">01</span>
+          <h3 data-i18n="mk1.t">UMKM &amp; usaha lokal</h3>
+          <p data-i18n="mk1.d">Website, logo, dan konten sosial untuk usahamu.</p>
+          <span class="micon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M3 9a3 3 0 0 0 6 0 3 3 0 0 0 6 0 3 3 0 0 0 6 0"/><path d="M5 12v8h14v-8"/><path d="M10 20v-5h4v5"/></svg></span>
+        </article>
+        <article class="mcard reveal">
+          <span class="mnum">02</span>
+          <h3 data-i18n="mk2.t">Organisasi kampus &amp; sekolah</h3>
+          <p data-i18n="mk2.d">Poster kegiatan, ID card, dan publikasi organisasi.</p>
+          <span class="micon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11.5V16c0 1.5 2.7 3 6 3s6-1.5 6-3v-4.5"/><path d="M22 9v6"/></svg></span>
+        </article>
+        <article class="mcard reveal">
+          <span class="mnum">03</span>
+          <h3 data-i18n="mk3.t">Mahasiswa &amp; komunitas</h3>
+          <p data-i18n="mk3.d">Portofolio digital dan identitas visual komunitas.</p>
+          <span class="micon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M17 14.2c2.4 0 4.3 1.9 4.3 4.3"/></svg></span>
+        </article>
+        <article class="mcard reveal">
+          <span class="mnum">04</span>
+          <h3 data-i18n="mk4.t">Event organizer</h3>
+          <p data-i18n="mk4.d">Landing page acara, poster digital, dan ID card panitia.</p>
+          <span class="micon" aria-hidden="true"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2.5"/><path d="M3 10h18"/><path d="M8 3v4M16 3v4"/><path d="M12 13.2l1 2 2.2.3-1.6 1.5.4 2.2-2-1.1-2 1.1.4-2.2-1.6-1.5 2.2-.3z"/></svg></span>
+        </article>
+      </div>
+      <p class="market-line reveal" data-i18n="mk.line">Website • identitas • publikasi • pengalaman digital</p>
+    </div>
+  </section>
+
+  <section class="steps" id="process">
+    <div class="wrap-mid">
+      <div class="section-head">
+        <h2 class="h2 reveal" data-i18n="steps.title">Tujuh Tahap Menuju Karya Terbaik</h2>
+        <p class="lead reveal" data-i18n="steps.sub">Alur sederhana dari konsultasi sampai serah terima, jelas di setiap tahap.</p>
+      </div>
+      <div class="step-list">
+        <div class="step s1 reveal">
+          <span class="step-dot">1</span>
+          <span class="step-tag" data-i18n="steps.t1">Persiapan</span>
+          <i class="ln"></i>
+          <h3 data-i18n="s1.t">Konsultasi</h3>
+          <p data-i18n="s1.d">Ceritakan kebutuhan dan tujuanmu. Cukup beberapa menit.</p>
+        </div>
+        <div class="step s2 reveal">
+          <span class="step-dot">2</span>
+          <span class="step-tag" data-i18n="steps.t2">Mulai</span>
+          <i class="ln"></i>
+          <h3 data-i18n="s2.t">Brief</h3>
+          <p data-i18n="s2.d">Sampaikan gaya, referensi, dan anggaran lewat brief singkat.</p>
+        </div>
+        <div class="step s3 reveal">
+          <span class="step-dot">3</span>
+          <i class="ln"></i>
+          <h3 data-i18n="s3.t">Penawaran</h3>
+          <p data-i18n="s3.d">Terima arahan dan estimasi biaya yang jelas serta transparan.</p>
+        </div>
+        <div class="step s4 reveal">
+          <span class="step-dot">4</span>
+          <i class="curve out"></i>
+          <h3 data-i18n="s4.t">Pengerjaan</h3>
+          <p data-i18n="s4.d">Tim kami mengerjakan website dan desainmu sesuai kesepakatan.</p>
+        </div>
+        <div class="step s5 reveal">
+          <span class="step-dot">5</span>
+          <i class="curve in"></i>
+          <i class="ln rev"></i>
+          <h3 data-i18n="s5.t">Review</h3>
+          <p data-i18n="s5.d">Cek hasilnya bersama kami dan sampaikan masukanmu.</p>
+        </div>
+        <div class="step s6 reveal">
+          <span class="step-dot">6</span>
+          <span class="step-tag" data-i18n="steps.t3">Selesai</span>
+          <i class="ln rev"></i>
+          <h3 data-i18n="s6.t">Finalisasi</h3>
+          <p data-i18n="s6.d">Sempurnakan hasilnya sampai benar-benar siap dipakai.</p>
+        </div>
+        <div class="step s7 reveal">
+          <span class="step-dot">7</span>
+          <h3 data-i18n="s7.t">Serah Terima</h3>
+          <p data-i18n="s7.d">Hasil akhir diserahkan, lalu kamu siap meluncur dengan percaya diri.</p>
+        </div>
+        <div class="step-cta reveal">
+          <p class="step-cta-t" data-i18n="steps.cta.t">Siap mulai proyekmu?</p>
+          <p class="step-cta-d" data-i18n="steps.cta.d">Ceritakan idemu, kami bantu dari tahap pertama.</p>
+          <a href="#download" data-wa class="btn btn-dark"><span data-i18n="nav.cta">Konsultasi</span></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="portfolio" id="portfolio">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 class="h2 reveal" data-i18n="pf.title">Portofolio Konsep</h2>
+        <p class="lead reveal" data-i18n="pf.sub">Sample Concept — visual simulasi untuk menunjukkan arah kualitas desain.</p>
+      </div>
+      <div class="pf-grid">
+        <article class="pf-tile reveal">
+          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
+          <span class="pf-label" data-i18n="pf1">Website UMKM</span>
+        </article>
+        <article class="pf-tile reveal">
+          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
+          <span class="pf-label" data-i18n="pf2">Logo &amp; branding</span>
+        </article>
+        <article class="pf-tile reveal">
+          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
+          <span class="pf-label" data-i18n="pf3">Poster &amp; konten sosial</span>
+        </article>
+        <article class="pf-tile reveal">
+          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
+          <span class="pf-label" data-i18n="pf4">ID card &amp; banner</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="pricing" id="pricing">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="pill reveal"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4l-7.2 7.2a2 2 0 0 1-2.8 0L3 13V3h10l7.6 7.6a2 2 0 0 1 0 2.8z"/><circle cx="7.5" cy="7.5" r="1.3"/></svg><span data-i18n="price.pill">Harga</span></span>
+        <h2 class="h2 reveal" data-i18n="price.title">Harga Transparan Sejak Awal</h2>
+        <p class="lead reveal" data-i18n="price.sub">Harga simulasi, dapat berubah sesuai kebutuhan proyek.</p>
+      </div>
+
+      <h3 class="sub-h reveal" data-i18n="price.bundle">Paket Bundling</h3>
+      <div class="price-grid">
+        <article class="pcard reveal">
+          <h3 data-i18n="p1.name">UMKM Digital</h3>
+          <div class="price"><b data-i18n="p1.price">Rp450.000</b><span data-i18n="price.per">/paket</span></div>
+          <p class="pdesc" data-i18n="p1.desc">Website, logo, dan konten sosial untuk usaha yang baru mulai tampil online.</p>
+          <a href="#download" data-wa class="pbtn" data-i18n="price.btn">Pilih paket</a>
+          <ul>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p1.a">Landing page sederhana</span></li>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p1.b">Logo sederhana</span></li>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p1.c">3 desain konten sosial</span></li>
+          </ul>
+        </article>
+        <div class="pfeat reveal">
+          <div class="pband"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M13.2 2L4.5 13.4h6L9.6 22l8.9-11.6h-6z"/></svg><span data-i18n="price.pop">Paling terjangkau</span></div>
+          <article class="pcard featured">
+            <h3 data-i18n="p2.name">Organisasi</h3>
+            <div class="price"><b data-i18n="p2.price">Rp175.000</b><span data-i18n="price.per">/paket</span></div>
+            <p class="pdesc" data-i18n="p2.desc">Poster, ID card, dan template pengumuman untuk kegiatan organisasi.</p>
+            <a href="#download" data-wa class="pbtn" data-i18n="price.btn">Pilih paket</a>
+            <ul>
+              <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p2.a">Poster kegiatan</span></li>
+              <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p2.b">Desain ID card</span></li>
+              <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p2.c">Template pengumuman</span></li>
+            </ul>
+          </article>
+        </div>
+        <article class="pcard reveal">
+          <h3 data-i18n="p3.name">Event Starter</h3>
+          <div class="price"><b data-i18n="p3.price">Rp650.000</b><span data-i18n="price.per">/paket</span></div>
+          <p class="pdesc" data-i18n="p3.desc">Landing page, poster, dan ID card panitia untuk acara yang siap tampil.</p>
+          <a href="#download" data-wa class="pbtn" data-i18n="price.btn">Pilih paket</a>
+          <ul>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p3.a">Landing page acara</span></li>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p3.b">Poster digital</span></li>
+            <li><svg width="18" height="18"><use href="#check-c"/></svg><span data-i18n="p3.c">ID card panitia</span></li>
+          </ul>
+        </article>
+      </div>
+
+      <h3 class="sub-h reveal" data-i18n="price.unit">Harga Satuan</h3>
+      <div class="unit-grid">
+        <div class="ucard reveal"><small data-i18n="u1.n">Landing page</small><b data-i18n="u1.p">mulai Rp150.000</b></div>
+        <div class="ucard reveal"><small data-i18n="u2.n">Website profil / UMKM</small><b data-i18n="u2.p">mulai Rp350.000</b></div>
+        <div class="ucard reveal"><small data-i18n="u3.n">Website custom</small><b data-i18n="u3.p">mulai Rp500.000</b></div>
+        <div class="ucard reveal"><small data-i18n="u4.n">Desain poster</small><b data-i18n="u4.p">mulai Rp25.000</b></div>
+        <div class="ucard reveal"><small data-i18n="u5.n">5 konten sosial</small><b data-i18n="u5.p">mulai Rp75.000</b></div>
+        <div class="ucard reveal"><small data-i18n="u6.n">Desain ID card</small><b data-i18n="u6.p">mulai Rp10.000</b></div>
+      </div>
+
+      <p class="price-note reveal" data-i18n="price.note">Harga simulasi • Cetak fisik, domain, hosting, dan fitur tambahan dikenakan biaya terpisah.</p>
+      <p class="price-custom reveal"><span data-i18n="price.custom">Butuh layanan tambahan (custom)?</span> <a href="#download" data-wa data-i18n="price.custom.btn">Hubungi kami</a></p>
+    </div>
+  </section>
+
+  <section class="cta" id="download">
+    <div class="cta-sky"></div>
+    <div class="cta-cloud-mid"></div>
+    <div class="orbit" id="orbit" aria-hidden="true"></div>
+    <div class="wrap cta-stage">
+      <div class="cta-copy">
+        <h2 class="cta-title reveal" data-i18n="cta.title">Karya Hebatmu Dimulai Dari Sini</h2>
+        <p class="cta-text reveal" data-i18n="cta.text">Ambil langkah pertama menuju kehadiran digital yang lebih kuat. Ceritakan kebutuhanmu, lalu terima konsep dan penawaran yang jelas.</p>
+        <div class="cta-actions reveal">
+          <a href="#download" data-wa class="btn btn-dark">
+            <span class="btn-ico"><svg width="16" height="16"><use href="#spark"/></svg></span>
+            <span data-i18n="cta.btn">Konsultasi sekarang</span>
+          </a>
+          <a href="#pricing" class="btn btn-ghost" data-i18n="hero.prices">Lihat harga</a>
+        </div>
+      </div>
+    </div>
+    <div class="cta-cloud"></div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="wrap">
+    <div class="foot-social">
+      <a href="#" aria-label="Instagram" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></svg>
+      </a>
+      <a href="#" aria-label="TikTok" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v11.2a3.8 3.8 0 1 1-3.8-3.8"/><path d="M14 3c.3 2.7 2 4.5 5 4.8"/></svg>
+      </a>
+      <a href="#download" data-wa aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 20.5l1.4-4.3A8.5 8.5 0 1 1 8 19.3z"/><path d="M9 8.6c0 3.3 2.7 6 6 6l1.3-1.5-2.1-1-1 .9c-.9-.4-1.9-1.4-2.3-2.3l.9-1-1-2.1z" fill="currentColor" stroke="none"/></svg>
+      </a>
+    </div>
+
+    <p class="foot-desc" data-i18n="foot.desc">Layanan pengembangan website, desain grafis, serta ID card dan event untuk individu, UMKM, organisasi, dan penyelenggara acara.</p>
+
+    <a href="#top" class="foot-logo" aria-label="Viscode Creative">
+      <img class="brand-mark" src="assets/logo.png" alt="Viscode Creative">
+    </a>
+
+    <p class="foot-region">Indonesia | Rp</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
