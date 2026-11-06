@@ -745,4 +745,52 @@
   render();
   new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   if (mq.addEventListener) mq.addEventListener('change', render); else mq.addListener(render);
-})(); 
+})();
+
+(function () {
+  var ROUTES = {
+    top: '/',
+    features: '/features',
+    process: '/process',
+    portfolio: '/portfolio',
+    team: '/team',
+    pricing: '/pricing',
+    download: '/contact'
+  };
+  var byPath = {};
+  Object.keys(ROUTES).forEach(function (id) { byPath[ROUTES[id]] = id; });
+
+  function currentId() {
+    var p = location.pathname.replace(/\/+$/, '') || '/';
+    return byPath[p] || null;
+  }
+
+  function scrollToId(id, behavior) {
+    if (id === 'top') { window.scrollTo({ top: 0, behavior: behavior }); return; }
+    var el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: behavior, block: 'start' });
+  }
+
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
+    if (!a) return;
+    var id = a.getAttribute('href').slice(1);
+    if (!id || (id !== 'top' && !document.getElementById(id))) return;
+    e.preventDefault();
+    var path = ROUTES[id] || '/' + id;
+    if (location.pathname !== path) history.pushState(null, '', path);
+    scrollToId(id, 'smooth');
+  });
+
+  window.addEventListener('popstate', function () {
+    scrollToId(currentId() || 'top', 'smooth');
+  });
+
+  var first = currentId();
+  if (first && first !== 'top') {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+    window.addEventListener('load', function () {
+      setTimeout(function () { scrollToId(first, 'instant'); }, 80);
+    });
+  }
+})();
