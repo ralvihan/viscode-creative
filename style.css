@@ -257,24 +257,15 @@ section[id]{scroll-margin-top:90px}
   max-width:1100px;
   margin:0 auto;
   font-size:clamp(34px,7vw,92px);
-  font-weight:600;
-  line-height:1.02;
+  font-weight:500;
+  line-height:1.08;
   letter-spacing:-.05em;
   color:var(--navy);
   --e:cubic-bezier(.2,.8,.2,1);
 }
 .ht-line{display:block;width:fit-content;margin:0 auto}
-.ht-l1{
-  background:linear-gradient(90deg,#c3c7dc 0%,#9aa1c0 30%,var(--navy) 72%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-}
-.ht-l3{
-  background:linear-gradient(90deg,var(--navy) 35%,#8f96b6 100%);
-  -webkit-background-clip:text;background-clip:text;
-  -webkit-text-fill-color:transparent;color:transparent;
-}
-.ht-l2{display:flex;align-items:center;justify-content:center;gap:.14em;margin:.06em auto}
+.tw.g{color:#6a739e}
+.ht-l2{display:flex;align-items:center;justify-content:center;gap:.14em;margin:.08em auto}
 
 /* pill ikon di sebelah kata */
 .hp{
@@ -296,21 +287,35 @@ section[id]{scroll-margin-top:90px}
 }
 .hp-i.on{opacity:1;transform:none;z-index:1}
 
-/* kata yang berganti (kayak teks yang lagi di-select) */
-.rw{position:relative;display:block;flex:none}
-.rw-box{
-  display:block;overflow:hidden;
-  padding:.02em .2em .1em;border-radius:.16em;
-  line-height:1.05;color:#3558d8;
+/* kata yang berganti: diedit langsung (mark, lingkarin, bold/italic/underline) */
+.rw{position:relative;display:block;flex:none;color:#3558d8}
+.rw-sel{
+  position:absolute;inset:0;z-index:0;
+  border-radius:.16em;
   background:rgba(255,255,255,.62);
-  box-shadow:inset 0 0 0 1px rgba(53,88,216,.22);
-  perspective:700px;
+  box-shadow:inset 0 0 0 1px rgba(53,88,216,.3);
+  clip-path:inset(100% 100% 0 0);
+  transition:clip-path .9s cubic-bezier(.45,.05,.55,.95);
 }
+.rw-sel.on{clip-path:inset(0 0 0 0)}
+.rw-box{position:relative;z-index:1;display:block;overflow:hidden;padding:.02em .2em .1em;line-height:1.05;perspective:700px}
 .rw-words{display:grid;white-space:nowrap;transition:width .6s var(--e)}
 .rw-w{grid-area:1/1;width:max-content;white-space:nowrap;visibility:hidden;opacity:0}
 .rw-w.is-on{visibility:visible;opacity:1}
+.rw.fmt-b .rw-w{font-weight:800}
+.rw.fmt-i .rw-w{font-style:italic}
+.rw.fmt-u .rw-w{text-decoration:underline;text-decoration-thickness:.07em;text-underline-offset:.08em;text-decoration-skip-ink:none}
+
+/* lapisan efek */
+.rw-fx{
+  position:absolute;inset:0;z-index:4;pointer-events:none;
+  --cs:clamp(26px,.34em,44px);--ps:clamp(26px,.36em,46px);
+  --cd:.9s;--ce:cubic-bezier(.45,.05,.55,.95);
+}
+.rw-hs{position:absolute;inset:0;opacity:0;transition:opacity .25s}
+.rw-hs.on{opacity:1}
 .rw-h{
-  position:absolute;z-index:2;
+  position:absolute;
   width:.11em;height:.11em;min-width:7px;min-height:7px;
   background:#fff;border:1.5px solid #3558d8;border-radius:2px;
 }
@@ -319,36 +324,60 @@ section[id]{scroll-margin-top:90px}
 .rw-h.c{left:0;bottom:0;transform:translate(-50%,50%)}
 .rw-h.d{right:0;bottom:0;transform:translate(50%,50%)}
 
-/* 7 animasi ganti kata */
-.in-rise{animation:rwRiseIn .6s var(--e) both}
-.out-rise{animation:rwRiseOut .5s var(--e) both}
-.in-drop{animation:rwDropIn .6s var(--e) both}
-.out-drop{animation:rwDropOut .5s var(--e) both}
-.in-blur{animation:rwBlurIn .6s var(--e) both}
-.out-blur{animation:rwBlurOut .45s ease both}
-.in-flip{animation:rwFlipIn .65s var(--e) both;transform-origin:50% 100%}
+.rw-circ{position:absolute;left:-9%;top:-30%;width:118%;height:160%;overflow:visible;opacity:0;transition:opacity .3s}
+.rw-circ.on{opacity:1}
+.rw-circ path{fill:none;stroke:#f2b705;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+
+.rw-tb{
+  position:absolute;left:50%;bottom:calc(100% + .1em);
+  display:flex;gap:.2em;padding:.3em;
+  font-size:clamp(12px,.2em,18px);line-height:1;letter-spacing:0;
+  color:#e9ecf8;background:#2c3147;border-radius:.7em;
+  box-shadow:0 .5em 1.2em -.4em rgba(15,29,69,.55);
+  opacity:0;transform:translate(-50%,.6em) scale(.92);
+  transition:opacity .3s ease,transform .35s var(--e);
+}
+.rw-tb.on{opacity:1;transform:translate(-50%,0)}
+.rw-tb span{display:grid;place-items:center;width:2em;height:2em;border-radius:.5em;font-weight:500;transition:background .15s,transform .15s}
+.rw-tb .tb-b{font-weight:800}
+.rw-tb .tb-i{font-style:italic}
+.rw-tb .tb-u{text-decoration:underline}
+.rw-tb span.act{background:#556094}
+.rw-tb span.press{transform:scale(.9)}
+
+.rw-cur,.rw-pen{
+  position:absolute;left:0;top:0;width:0;height:0;z-index:6;opacity:0;
+  transition:left var(--cd) var(--ce),top var(--cd) var(--ce),opacity .25s ease;
+}
+.rw-cur.on,.rw-pen.on{opacity:1}
+.rw-cur svg{
+  position:absolute;left:calc(var(--cs)*-.21);top:calc(var(--cs)*-.125);
+  width:var(--cs);height:var(--cs);transform-origin:21% 12.5%;
+  filter:drop-shadow(0 2px 3px rgba(15,29,69,.35));
+}
+.rw-cur.click svg{animation:rwClick .3s ease}
+@keyframes rwClick{50%{transform:scale(.75)}}
+.rw-pen svg{
+  position:absolute;left:calc(var(--ps)*-.125);top:calc(var(--ps)*-.875);
+  width:var(--ps);height:var(--ps);
+  filter:drop-shadow(0 2px 3px rgba(15,29,69,.3));
+}
+
+/* animasi masuk/keluar kata: diketik, flip, blur motion */
+.typing .ch{position:relative;opacity:0}
+.typing .ch.t{opacity:1}
+.typing .ch.cur::after{
+  content:"";position:absolute;right:-.02em;top:.12em;bottom:.12em;width:.045em;
+  background:#3558d8;
+}
+.in-flip{animation:rwFlipIn .7s var(--e) both;transform-origin:50% 100%}
 .out-flip{animation:rwFlipOut .5s var(--e) both;transform-origin:50% 0}
-.in-wipe{animation:rwWipeIn .7s var(--e) both}
-.out-wipe{animation:rwWipeOut .6s var(--e) both}
-.in-slide{animation:rwSlideIn .6s var(--e) both}
-.out-slide{animation:rwSlideOut .5s var(--e) both}
-.in-letters .ch,.out-letters .ch{display:inline-block}
-.in-letters .ch{animation:rwChIn .65s cubic-bezier(.34,1.56,.64,1) both;animation-delay:calc(140ms + var(--i)*38ms)}
-.out-letters .ch{animation:rwChOut .35s ease-in both;animation-delay:calc(var(--i)*18ms)}
-@keyframes rwRiseIn{from{transform:translateY(105%)}to{transform:none}}
-@keyframes rwRiseOut{from{transform:none}to{transform:translateY(-105%)}}
-@keyframes rwDropIn{from{transform:translateY(-105%)}to{transform:none}}
-@keyframes rwDropOut{from{transform:none}to{transform:translateY(105%)}}
-@keyframes rwBlurIn{from{opacity:0;filter:blur(14px);transform:scale(.88)}to{opacity:1;filter:none;transform:none}}
-@keyframes rwBlurOut{from{opacity:1;filter:none}to{opacity:0;filter:blur(14px);transform:scale(1.12)}}
 @keyframes rwFlipIn{from{opacity:0;transform:rotateX(-85deg) translateY(30%)}to{opacity:1;transform:none}}
 @keyframes rwFlipOut{from{opacity:1;transform:none}to{opacity:0;transform:rotateX(85deg) translateY(-30%)}}
-@keyframes rwWipeIn{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
-@keyframes rwWipeOut{from{clip-path:inset(0 0 0 0)}to{clip-path:inset(0 0 0 100%)}}
-@keyframes rwSlideIn{from{opacity:0;transform:translateX(70%) skewX(-14deg)}to{opacity:1;transform:none}}
-@keyframes rwSlideOut{from{opacity:1;transform:none}to{opacity:0;transform:translateX(-70%) skewX(14deg)}}
-@keyframes rwChIn{from{opacity:0;transform:translateY(80%) scale(.5) rotate(10deg)}to{opacity:1;transform:none}}
-@keyframes rwChOut{from{opacity:1;transform:none}to{opacity:0;transform:translateY(-90%) scale(.6)}}
+.in-blur{animation:rwBlurIn .7s var(--e) both}
+.out-blur{animation:rwBlurOut .5s ease-in both}
+@keyframes rwBlurIn{from{opacity:0;filter:blur(16px);transform:translateX(-45%) scaleX(1.25)}to{opacity:1;filter:blur(0);transform:none}}
+@keyframes rwBlurOut{from{opacity:1;transform:none}to{opacity:0;filter:blur(16px);transform:translateX(45%) scaleX(1.25)}}
 
 .hero-svc{
   display:flex;justify-content:center;flex-wrap:wrap;
@@ -560,8 +589,9 @@ section[id]{scroll-margin-top:90px}
 .scribble{position:relative;display:inline-block;white-space:nowrap}
 .scr-svg{
   position:absolute;
-  left:-12%;top:-16%;
-  width:124%;height:132%;
+  left:-.6em;top:50%;
+  width:calc(100% + 1.2em);height:1.65em;
+  transform:translateY(-47.5%);
   overflow:visible;
   pointer-events:none;
 }
@@ -674,16 +704,19 @@ section[id]{scroll-margin-top:90px}
 }
 .b-id h3{color:#fff}
 .b-id p{color:rgba(255,255,255,.66)}
-.b-budget{grid-column:2/span 2;display:flex;align-items:center;gap:40px}
-.b-budget .b-text{flex:1;max-width:300px}
+.b-budget{display:flex;flex-direction:column;justify-content:space-between;gap:16px}
 .b-budget .sliders{
-  flex:1;
   width:auto;
-  padding:30px 28px;
+  padding:22px 24px;
+  gap:20px;
   border-radius:22px;
   background:#f5f7fe;
   border:1px solid var(--line);
 }
+.b-id{grid-column:2/span 2;display:flex;align-items:center}
+.b-id .b-text{max-width:300px}
+.b-id .fart{left:46%}
+.b-id .fart .idc{bottom:-44px;width:128px;height:196px;margin-left:-64px}
 
 /* Ilustrasi yang dipotong tepi card (crop) */
 .fart{
@@ -697,7 +730,7 @@ section[id]{scroll-margin-top:90px}
 .fpop{position:absolute;z-index:2;pointer-events:none}
 
 /* Website: lembaran keluar lewat kiri & bawah card */
-.pop-web{left:-30px;right:22px;bottom:-34px;height:410px}
+.pop-web{left:-27px;right:-33px;bottom:-34px;height:410px}
 .pop-web .sheet{width:190px;height:140px;margin:-70px 0 0 -95px}
 .pop-web .s-a{transform:translate(-82px,-52px) rotate(-13deg)}
 .pop-web .s-b{transform:translate(78px,-70px) rotate(11deg)}
@@ -749,16 +782,17 @@ section[id]{scroll-margin-top:90px}
 @media (max-width:960px){
   .feat-grid{grid-template-columns:1fr 1fr;grid-template-rows:none;grid-auto-rows:minmax(300px,auto)}
   .b-web{grid-column:1/-1;grid-row:auto;min-height:460px}
-  .b-budget{grid-column:1/-1}
+  .b-id{grid-column:1/-1}
 }
 @media (max-width:640px){
   .feat-grid{grid-template-columns:1fr}
-  .b-web,.b-budget{grid-column:auto}
+  .b-web,.b-id{grid-column:auto}
+  .b-id{display:block}
+  .b-id .fart{left:0}
+  .b-id .fart .idc{bottom:-70px;width:112px;height:172px;margin-left:-56px}
   .b-web{min-height:440px}
-  .b-budget{flex-direction:column;align-items:stretch;gap:24px}
-  .b-budget .b-text{max-width:none}
-  .b-budget .sliders{flex:none}
-  .pop-web{left:-14px;right:14px;bottom:-26px}
+  .b-budget{gap:24px}
+  .pop-web{left:-11px;right:-17px;bottom:-26px}
   .pop-spark{right:-10px}
 }
 

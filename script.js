@@ -90,25 +90,37 @@
       id: ['website', 'desain grafis', 'branding', 'ID card', 'event'],
       en: ['websites', 'graphic design', 'branding', 'ID cards', 'events']
     };
-    var ANIMS = ['rise', 'blur', 'letters', 'flip', 'wipe', 'slide', 'drop'];
-    var DELAY = 2800;
+    var ENTER = ['type', 'flip', 'blur'];
+    var EDITS = ['mark', 'circle', 'b', 'i', 'u'];
+    var CANCEL = {};
     var rw = document.getElementById('rw');
     var wordsEl = document.getElementById('rwWords');
     if (!rw || !wordsEl) return { setLang: function () {} };
+    var sel = document.getElementById('rwSel');
+    var hs = document.getElementById('rwHs');
+    var circ = document.getElementById('rwCirc');
+    var circPath = document.getElementById('rwCircPath');
+    var tb = document.getElementById('rwTb');
+    var cur = document.getElementById('rwCur');
+    var pen = document.getElementById('rwPen');
     var pill = document.getElementById('hpill');
     var icons = pill ? Array.prototype.slice.call(pill.querySelectorAll('.hp-i')) : [];
     var hero = document.querySelector('.hero');
-    var lang = 'id', idx = 0, step = 0, els = [], timers = [];
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lang = 'id', idx = 0, step = 0, els = [], runId = 0;
 
-    function later(fn, ms) { timers.push(setTimeout(fn, ms)); }
-    function clearTimers() { timers.forEach(clearTimeout); timers = []; }
-
+    function sleep(ms, id) {
+      return new Promise(function (res, rej) {
+        setTimeout(function () { if (id === runId) res(); else rej(CANCEL); }, ms);
+      });
+    }
     function build() {
       wordsEl.innerHTML = '';
       els = WORDS[lang].map(function (w) {
         var s = document.createElement('span');
         s.className = 'rw-w';
         s.setAttribute('aria-hidden', 'true');
+        s.style.setProperty('--n', w.length);
         w.split('').forEach(function (ch, i) {
           var c = document.createElement('span');
           c.className = 'ch';
@@ -129,28 +141,184 @@
       icons.forEach(function (ic, i) { ic.classList.toggle('on', i === idx % icons.length); });
       if (pill) pill.style.setProperty('--k', idx);
     }
-    function swap() {
-      if (document.hidden || (hero && hero.classList.contains('is-offscreen'))) return;
-      var cur = els[idx];
-      idx = (idx + 1) % els.length;
-      var nx = els[idx];
-      var a = ANIMS[step++ % ANIMS.length];
-      cur.className = 'rw-w is-on out-' + a;
-      cur.setAttribute('aria-hidden', 'true');
-      nx.className = 'rw-w is-on in-' + a;
-      nx.removeAttribute('aria-hidden');
+    function hardReset() {
+      [sel, hs, circ, tb, cur, pen].forEach(function (el) { el.classList.remove('on', 'click'); });
+      Array.prototype.forEach.call(tb.querySelectorAll('.act'), function (b) { b.classList.remove('act'); });
+      circPath.style.strokeDashoffset = 1;
+      rw.classList.remove('fmt-b', 'fmt-i', 'fmt-u');
+    }
+    function place(el, x, y, dur) {
+      el.style.setProperty('--cd', dur + 's');
+      el.style.left = x;
+      el.style.top = y;
+    }
+
+    /* ---- efek edit ---- */
+    async function doMark(S) {
+      place(cur, '0px', '100%', 0);
+      void cur.offsetWidth;
+      cur.classList.add('on');
+      await S(450);
+      place(cur, '100%', '0%', 0.9);
+      sel.classList.add('on');
+      await S(950);
+      hs.classList.add('on');
+      cur.classList.add('click');
+      await S(350);
+      cur.classList.remove('click');
+      await S(900);
+    }
+    function circGeo() {
+      var rr = rw.getBoundingClientRect(), cr = circ.getBoundingClientRect();
+      return { ox: cr.left - rr.left, oy: cr.top - rr.top, sx: cr.width / 200, sy: cr.height / 80 };
+    }
+    function drawCircle(id, dur, g) {
+      var fs = parseFloat(getComputedStyle(rw).fontSize) || 60;
+      circPath.style.strokeWidth = Math.max(3, Math.min(6, fs * 0.05)) / ((g.sx + g.sy) / 2);
+      var L = circPath.getTotalLength();
+      return new Promise(function (res, rej) {
+        var t0 = null;
+        function f(ts) {
+          if (id !== runId) return rej(CANCEL);
+          if (t0 === null) t0 = ts;
+          var t = Math.min(1, (ts - t0) / dur);
+          var e = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          var p = circPath.getPointAtLength(L * e);
+          circPath.style.strokeDashoffset = 1 - e;
+          pen.style.left = (g.ox + p.x * g.sx) + 'px';
+          pen.style.top = (g.oy + p.y * g.sy) + 'px';
+          if (t < 1) requestAnimationFrame(f); else res();
+        }
+        requestAnimationFrame(f);
+      });
+    }
+    async function doCircle(S, id) {
+      var g = circGeo();
+      circ.classList.add('on');
+      place(pen, (g.ox + 32 * g.sx) + 'px', (g.oy + 15 * g.sy) + 'px', 0);
+      void pen.offsetWidth;
+      pen.classList.add('on');
+      await S(250);
+      await drawCircle(id, 1100, g);
+      await S(150);
+      pen.classList.remove('on');
+      await S(1400);
+    }
+    async function doFormat(S, kind) {
+      tb.classList.add('on');
+      await S(500);
+      var btn = tb.querySelector('[data-k="' + kind + '"]');
+      var r = rw.getBoundingClientRect(), b = btn.getBoundingClientRect();
+      place(cur, (r.width * 1.08) + 'px', (r.height * 1.5) + 'px', 0);
+      void cur.offsetWidth;
+      cur.classList.add('on');
+      await S(200);
+      place(cur, (b.left - r.left + b.width / 2) + 'px', (b.top - r.top + b.height / 2) + 'px', 0.85);
+      await S(950);
+      cur.classList.add('click');
+      btn.classList.add('act', 'press');
+      await S(180);
+      btn.classList.remove('press');
+      rw.classList.add('fmt-' + kind);
       fit();
-      paint();
-      later(function () { cur.className = 'rw-w'; }, 750);
-      later(function () { nx.className = 'rw-w is-on'; }, 1000);
+      await S(750);
+      cur.classList.remove('click');
+    }
+    async function clearFx(S) {
+      [sel, hs, circ, tb, cur, pen].forEach(function (el) { el.classList.remove('on'); });
+      await S(450);
+      circPath.style.strokeDashoffset = 1;
+      Array.prototype.forEach.call(tb.querySelectorAll('.act'), function (b) { b.classList.remove('act', 'press'); });
+    }
+
+    async function typeIn(S, w) {
+      var chs = w.querySelectorAll('.ch');
+      w.className = 'rw-w is-on typing';
+      for (var i = 0; i < chs.length; i++) {
+        await S(75);
+        if (i) chs[i - 1].classList.remove('cur');
+        chs[i].classList.add('t', 'cur');
+      }
+      await S(450);
+      w.className = 'rw-w is-on';
+      Array.prototype.forEach.call(chs, function (c) { c.classList.remove('t', 'cur'); });
+    }
+    async function typeOut(S, w) {
+      var chs = w.querySelectorAll('.ch');
+      Array.prototype.forEach.call(chs, function (c) { c.classList.add('t'); });
+      w.className = 'rw-w is-on typing';
+      for (var i = chs.length - 1; i >= 0; i--) {
+        chs[i].classList.add('cur');
+        await S(55);
+        chs[i].classList.remove('t', 'cur');
+      }
+      await S(80);
+    }
+
+    async function run(id) {
+      var S = function (ms) { return sleep(ms, id); };
+      var first = true;
+      try {
+        while (id === runId) {
+          while (document.hidden || (hero && hero.classList.contains('is-offscreen'))) await S(400);
+          var w = els[idx];
+          w.removeAttribute('aria-hidden');
+          fit();
+          paint();
+          if (reduce) {
+            w.className = 'rw-w is-on';
+            await S(3200);
+            w.className = 'rw-w';
+            w.setAttribute('aria-hidden', 'true');
+            idx = (idx + 1) % els.length;
+            continue;
+          }
+          var enter = ENTER[(step * 2 + 1) % 3];
+          var edit = EDITS[step % EDITS.length];
+          if (first) {
+            await S(1100);
+            first = false;
+          } else {
+            if (enter === 'type') {
+              await typeIn(S, w);
+            } else {
+              w.className = 'rw-w is-on in-' + enter;
+              await S(750);
+              w.className = 'rw-w is-on';
+            }
+            await S(250);
+          }
+          if (edit === 'mark') await doMark(S);
+          else if (edit === 'circle') await doCircle(S, id);
+          else await doFormat(S, edit);
+          await S(900);
+          await clearFx(S);
+          if (enter === 'type') {
+            await typeOut(S, w);
+          } else {
+            w.className = 'rw-w is-on out-' + enter;
+            await S(560);
+          }
+          w.className = 'rw-w';
+          w.setAttribute('aria-hidden', 'true');
+          rw.classList.remove('fmt-b', 'fmt-i', 'fmt-u');
+          step++;
+          idx = (idx + 1) % els.length;
+          await S(120);
+        }
+      } catch (e) {
+        if (e !== CANCEL) throw e;
+      }
     }
     function setLang(l) {
+      runId++;
       lang = l;
       idx = 0;
-      clearTimers();
+      hardReset();
       build();
       fit();
       paint();
+      run(runId);
     }
 
     build();
@@ -159,7 +327,7 @@
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(fit);
     window.addEventListener('load', fit);
     window.addEventListener('resize', fit);
-    setInterval(swap, DELAY);
+    run(++runId);
     return { setLang: setLang };
   })();
 
@@ -170,8 +338,8 @@
     'nav.pricing': 'Pricing',
     'nav.contact': 'Contact',
     'nav.cta': 'Consult',
-    'hero.l1': 'Turn your ideas into',
-    'hero.l3': 'that people remember',
+    'hero.l1': '<span class="tw g">Turn</span> your ideas into',
+    'hero.l3': '<span class="tw g">that</span> people remember',
     'hero.s1': 'Websites',
     'hero.s2': 'Graphic Design',
     'hero.s3': 'ID Card & Event',
