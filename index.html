@@ -341,23 +341,112 @@
         <h2 class="h2 reveal" data-i18n="pf.title">Portofolio Konsep</h2>
         <p class="lead reveal" data-i18n="pf.sub">Sample Concept — visual simulasi untuk menunjukkan arah kualitas desain.</p>
       </div>
-      <div class="pf-grid">
-        <article class="pf-tile reveal">
-          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
-          <span class="pf-label" data-i18n="pf1">Website UMKM</span>
-        </article>
-        <article class="pf-tile reveal">
-          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
-          <span class="pf-label" data-i18n="pf2">Logo &amp; branding</span>
-        </article>
-        <article class="pf-tile reveal">
-          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
-          <span class="pf-label" data-i18n="pf3">Poster &amp; konten sosial</span>
-        </article>
-        <article class="pf-tile reveal">
-          <div class="pf-ph"><svg width="30" height="30"><use href="#image"/></svg><span>Sample Concept</span></div>
-          <span class="pf-label" data-i18n="pf4">ID card &amp; banner</span>
-        </article>
+
+      <div class="pf-folder reveal" id="pfFolder">
+        <div class="pf-tabs" role="tablist" aria-label="Kategori portofolio">
+          <button type="button" class="pf-tab on" role="tab" id="pft-web" aria-selected="true" aria-controls="pfp-web" data-tab="web" tabindex="0"><i style="--c:#f2b705"></i><span data-i18n="pft.web">Website</span></button>
+          <button type="button" class="pf-tab" role="tab" id="pft-design" aria-selected="false" aria-controls="pfp-design" data-tab="design" tabindex="-1"><i style="--c:#ff5d8f"></i><span data-i18n="pft.design">Desain Grafis</span></button>
+          <button type="button" class="pf-tab" role="tab" id="pft-id" aria-selected="false" aria-controls="pfp-id" data-tab="id" tabindex="-1"><i style="--c:#34d399"></i><span data-i18n="pft.id">ID Card & Event</span></button>
+        </div>
+
+        <div class="pf-board">
+          <span class="pf-expand" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+
+          <div class="pf-head">
+            <div class="pf-sel">
+              <i class="h a"></i><i class="h b"></i><i class="h c"></i><i class="h d"></i>
+              <h3 class="pf-title" id="pfTitle">website</h3>
+              <span class="pf-cursor" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 3l13.5 6.3-5.7 1.7L9.6 17z" fill="#14182b" stroke="#fff" stroke-width="1.5" stroke-linejoin="round"/></svg></span>
+            </div>
+          </div>
+
+          <div class="pf-panels">
+          <div class="pf-panel on" role="tabpanel" id="pfp-web" aria-labelledby="pft-web">
+            <article class="pf-item" style="--n:0">
+              <div class="pf-img"><img src="assets/portfolio/web-1.svg" alt="Kopi Senja Nusantara" loading="lazy" width="640" height="400"><span class="pf-yr">2026</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Kopi Senja Nusantara</h4>
+                <p class="pf-desc" data-i18n="pfi.web1.d">Website katalog menu dengan pemesanan lewat WhatsApp.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.web1.t">Website UMKM</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:1">
+              <div class="pf-img"><img src="assets/portfolio/web-2.svg" alt="Batik Laras" loading="lazy" width="640" height="400"><span class="pf-yr">2025</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Batik Laras</h4>
+                <p class="pf-desc" data-i18n="pfi.web2.d">Company profile dengan galeri produk dan cerita brand.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.web2.t">Company profile</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:2">
+              <div class="pf-img"><img src="assets/portfolio/web-3.svg" alt="TechTalk Fest" loading="lazy" width="640" height="400"><span class="pf-yr">2025</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">TechTalk Fest</h4>
+                <p class="pf-desc" data-i18n="pfi.web3.d">Landing page acara lengkap dengan hitung mundur dan form daftar.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.web3.t">Landing page</span></span>
+              </div>
+            </article>
+          </div>
+          <div class="pf-panel" role="tabpanel" id="pfp-design" aria-labelledby="pft-design">
+            <article class="pf-item" style="--n:0">
+              <div class="pf-img"><img src="assets/portfolio/design-1.svg" alt="Rumah Roti Hangat" loading="lazy" width="640" height="400"><span class="pf-yr">2026</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Rumah Roti Hangat</h4>
+                <p class="pf-desc" data-i18n="pfi.design1.d">Logo, palet warna, dan panduan branding singkat.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.design1.t">Logo & branding</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:1">
+              <div class="pf-img"><img src="assets/portfolio/design-2.svg" alt="Fitra Gym Studio" loading="lazy" width="640" height="400"><span class="pf-yr">2025</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Fitra Gym Studio</h4>
+                <p class="pf-desc" data-i18n="pfi.design2.d">Poster promo pembukaan dan 5 konten Instagram.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.design2.t">Poster & sosmed</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:2">
+              <div class="pf-img"><img src="assets/portfolio/design-3.svg" alt="Lari Pagi Community" loading="lazy" width="640" height="400"><span class="pf-yr">2026</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Lari Pagi Community</h4>
+                <p class="pf-desc" data-i18n="pfi.design3.d">Banner, flyer, dan template konten rutin komunitas.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.design3.t">Banner & flyer</span></span>
+              </div>
+            </article>
+          </div>
+          <div class="pf-panel" role="tabpanel" id="pfp-id" aria-labelledby="pft-id">
+            <article class="pf-item" style="--n:0">
+              <div class="pf-img"><img src="assets/portfolio/id-1.svg" alt="Seminar Nasional Digitalia" loading="lazy" width="640" height="400"><span class="pf-yr">2026</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Seminar Nasional Digitalia</h4>
+                <p class="pf-desc" data-i18n="pfi.id1.d">ID card panitia, lanyard, dan publikasi acara.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.id1.t">ID card panitia</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:1">
+              <div class="pf-img"><img src="assets/portfolio/id-2.svg" alt="OSIS Harapan Bangsa" loading="lazy" width="640" height="400"><span class="pf-yr">2025</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">OSIS Harapan Bangsa</h4>
+                <p class="pf-desc" data-i18n="pfi.id2.d">Kartu anggota organisasi siap cetak.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.id2.t">Kartu anggota</span></span>
+              </div>
+            </article>
+            <article class="pf-item" style="--n:2">
+              <div class="pf-img"><img src="assets/portfolio/id-3.svg" alt="Pensi Senja Fest" loading="lazy" width="640" height="400"><span class="pf-yr">2025</span></div>
+              <div class="pf-body">
+                <h4 class="pf-brand">Pensi Senja Fest</h4>
+                <p class="pf-desc" data-i18n="pfi.id3.d">Tiket, ID card panitia, dan backdrop acara.</p>
+                <span class="pf-tag"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span data-i18n="pfi.id3.t">Event kit</span></span>
+              </div>
+            </article>
+          </div>
+          </div>
+
+          <div class="pf-foot" aria-hidden="true">
+            <svg class="pf-chk" viewBox="0 0 3 3" shape-rendering="crispEdges"><path d="M1 0h1v1h-1zM0 1h1v1h-1zM2 1h1v1h-1zM1 2h1v1h-1z"/></svg>
+            <svg class="pf-chk" viewBox="0 0 3 3" shape-rendering="crispEdges"><path d="M1 0h1v1h-1zM0 1h1v1h-1zM2 1h1v1h-1zM1 2h1v1h-1z"/></svg>
+            <svg class="pf-chk" viewBox="0 0 3 3" shape-rendering="crispEdges"><path d="M1 0h1v1h-1zM0 1h1v1h-1zM2 1h1v1h-1zM1 2h1v1h-1z"/></svg>
+          </div>
+        </div>
       </div>
     </div>
   </section>

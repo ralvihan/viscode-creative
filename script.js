@@ -402,6 +402,27 @@
     's7.d': 'We hand over the final result so you can launch with confidence.',
     'pf.title': 'Portfolio Concept',
     'pf.sub': 'Sample Concept — simulated visuals that show the direction of our design quality.',
+    'pft.web': 'Website',
+    'pfi.web1.d': 'Menu catalog website with WhatsApp ordering.',
+    'pfi.web1.t': 'SME website',
+    'pfi.web2.d': 'Company profile with a product gallery and brand story.',
+    'pfi.web2.t': 'Company profile',
+    'pfi.web3.d': 'Event landing page with a countdown and sign-up form.',
+    'pfi.web3.t': 'Landing page',
+    'pft.design': 'Graphic Design',
+    'pfi.design1.d': 'Logo, color palette, and a short branding guide.',
+    'pfi.design1.t': 'Logo & branding',
+    'pfi.design2.d': 'Grand opening promo poster and 5 Instagram posts.',
+    'pfi.design2.t': 'Poster & social',
+    'pfi.design3.d': 'Banner, flyer, and recurring content templates.',
+    'pfi.design3.t': 'Banner & flyer',
+    'pft.id': 'ID Card & Event',
+    'pfi.id1.d': 'Committee ID cards, lanyards, and event publicity.',
+    'pfi.id1.t': 'Committee ID card',
+    'pfi.id2.d': 'Print-ready organization member cards.',
+    'pfi.id2.t': 'Member card',
+    'pfi.id3.d': 'Tickets, committee ID cards, and event backdrop.',
+    'pfi.id3.t': 'Event kit',
     'pf1': 'SME website',
     'pf2': 'Logo & branding',
     'pf3': 'Poster & social content',
@@ -793,4 +814,45 @@
       setTimeout(function () { scrollToId(first, 'instant'); }, 80);
     });
   }
+})();
+
+(function () {
+  var folder = document.getElementById('pfFolder');
+  if (!folder) return;
+  var tabs = [].slice.call(folder.querySelectorAll('.pf-tab[data-tab]'));
+  var panels = [].slice.call(folder.querySelectorAll('.pf-panel'));
+  var title = document.getElementById('pfTitle');
+
+  function syncTitle() {
+    var on = folder.querySelector('.pf-tab.on span');
+    if (on && title) title.textContent = on.textContent;
+  }
+
+  function select(tab, focus) {
+    var key = tab.getAttribute('data-tab');
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.setAttribute('tabindex', on ? '0' : '-1');
+    });
+    panels.forEach(function (p) {
+      p.classList.toggle('on', p.id === 'pfp-' + key);
+    });
+    syncTitle();
+    if (focus) tab.focus();
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
+
+  syncTitle();
+  new MutationObserver(syncTitle).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 })();
