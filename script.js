@@ -745,4 +745,4 @@
   render();
   new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
   if (mq.addEventListener) mq.addEventListener('change', render); else mq.addListener(render);
-})();
+})(); 
