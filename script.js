@@ -378,7 +378,6 @@
     'mk3.d': 'Digital portfolios and visual identity for communities.',
     'mk4.t': 'Event organizers',
     'mk4.d': 'Event landing pages, digital posters, and committee ID cards.',
-    'mk.line': 'Website • identity • publication • digital experience',
     'steps.title': 'Seven Stages to Your Best Work',
     'steps.sub': 'A simple flow from consultation to handover, with clarity at every stage.',
     'steps.t1': 'Preparation',
@@ -472,6 +471,7 @@
     'u5.p': 'from IDR 75,000',
     'u6.n': 'ID card design',
     'u6.p': 'from IDR 10,000',
+    'un.d': 'Single service prices are starting prices. If you want a more detailed and polished result, or have special requests, the cost can be higher than the starting price. Consult first for a clear estimate.',
     'price.note': 'Simulated prices • Physical printing, domain, hosting, and extra features are charged separately.',
     'price.custom': 'Need an extra custom service?',
     'price.custom.btn': 'Contact us',
@@ -855,4 +855,38 @@
 
   syncTitle();
   new MutationObserver(syncTitle).observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
+})();
+
+(function () {
+  var tabs = [].slice.call(document.querySelectorAll('.ptab[data-ptab]'));
+  var panels = [].slice.call(document.querySelectorAll('.ppanel'));
+  if (!tabs.length) return;
+
+  function select(tab, focus) {
+    var key = tab.getAttribute('data-ptab');
+    tabs.forEach(function (t) {
+      var on = t === tab;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.setAttribute('tabindex', on ? '0' : '-1');
+    });
+    panels.forEach(function (p) {
+      var on = p.id === 'pp-' + key;
+      p.classList.toggle('on', on);
+      if (on) {
+        [].slice.call(p.querySelectorAll('.reveal')).forEach(function (el) { el.classList.add('in'); });
+      }
+    });
+    if (focus) tab.focus();
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { select(t); });
+    t.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select(tabs[(i + d + tabs.length) % tabs.length], true);
+    });
+  });
 })();
