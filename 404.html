@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/style.css">
 <style>
+@media (min-height:560px){html,body{overflow:hidden}}
 .nf{
   min-height:100vh;
   min-height:100dvh;
@@ -19,19 +20,19 @@
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  padding:120px 24px 160px;
+  padding:84px 24px 56px;
 }
 .nf-brand{
   position:absolute;
-  top:28px;
+  top:20px;
   left:50%;
   transform:translateX(-50%);
   z-index:7;
 }
-.nf-brand img{height:44px;width:auto;object-fit:contain}
-.nf-inner{position:relative;z-index:6;max-width:640px}
+.nf-brand img{height:34px;width:auto;object-fit:contain}
+.nf-inner{position:relative;z-index:6;max-width:520px}
 .nf-code{
-  font-size:clamp(96px,22vw,220px);
+  font-size:clamp(64px,min(17vh,26vw),150px);
   font-weight:500;
   line-height:.9;
   letter-spacing:-.07em;
@@ -42,26 +43,26 @@
   color:transparent;
 }
 .nf-title{
-  margin-top:18px;
-  font-size:clamp(24px,4vw,38px);
+  margin-top:10px;
+  font-size:clamp(20px,min(3.6vh,5.5vw),30px);
   font-weight:500;
   letter-spacing:-.04em;
   color:var(--navy);
 }
 .nf-text{
-  margin:14px auto 0;
-  max-width:460px;
-  font-size:16px;
-  line-height:1.6;
+  margin:10px auto 0;
+  max-width:400px;
+  font-size:clamp(13px,1.9vh,15px);
+  line-height:1.55;
   color:var(--muted);
 }
 .nf-path{
   display:inline-block;
   max-width:100%;
-  margin-top:18px;
-  padding:6px 14px;
+  margin-top:12px;
+  padding:4px 12px;
   border-radius:999px;
-  font-size:13px;
+  font-size:12px;
   font-weight:500;
   color:var(--navy-2);
   background:rgba(255,255,255,.7);
@@ -75,12 +76,15 @@
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
-  gap:12px;
-  margin-top:32px;
+  gap:10px;
+  margin-top:22px;
 }
-.nf-actions .btn-dark{padding:0 26px}
+.nf-actions .btn{height:44px;font-size:13px}
+.nf-actions .btn-dark{padding:0 22px 0 7px}
+.nf-actions .btn-ghost{padding:0 24px}
+.nf-actions .btn-ico{width:30px;height:30px}
 @media (max-width:520px){
-  .nf{padding:110px 20px 140px}
+  .nf{padding:76px 20px 48px}
   .nf-actions .btn{width:100%;justify-content:center}
 }
 </style>

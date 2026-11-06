@@ -332,7 +332,10 @@
   })();
 
   var EN = {
+    'nav.about': 'About',
     'nav.features': 'Services',
+    'nav.market': 'Who It\'s For',
+    'nav.vision': 'Vision & Mission',
     'nav.process': 'Process',
     'nav.portfolio': 'Portfolio',
     'nav.pricing': 'Pricing',
