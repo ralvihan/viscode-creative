@@ -1332,3 +1332,76 @@ section[id]{scroll-margin-top:90px}
   .step p{max-width:none}
   .ln,.curve,.step-tag{display:none}
 }
+/* ---------- TEAM ---------- */
+.team{padding:10px 0 110px}
+.team-board{display:grid;gap:30px 0}
+.tc-row{position:relative;display:grid;grid-template-columns:repeat(var(--cols,4),1fr)}
+.tc-string{position:absolute;left:0;top:0;width:100%;height:40px;overflow:visible;pointer-events:none}
+.tc-string path{fill:none;stroke:rgba(15,29,69,.3);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.tc{position:relative;display:flex;justify-content:center;margin-top:var(--y,0px);padding:0 10px}
+.tc::before{content:"";position:absolute;top:-4px;left:50%;width:8px;height:8px;margin-left:-4px;border-radius:50%;background:#9aa3bd;z-index:4}
+.js .tc{opacity:0;transform:translateY(-28px);transition:opacity .8s ease var(--td,0s),transform 1s cubic-bezier(.2,.9,.3,1.25) var(--td,0s)}
+.js .tc.in{opacity:1;transform:none}
+.tc-pivot{width:100%;display:flex;flex-direction:column;align-items:center;transform:rotate(var(--a,0deg));transform-origin:50% 0;animation:tcSway 6.5s ease-in-out infinite;animation-delay:var(--sd,0s)}
+.tc.flip .tc-pivot{animation-play-state:paused}
+@keyframes tcSway{0%,100%{transform:rotate(var(--a,-2deg))}50%{transform:rotate(var(--b,2deg))}}
+.tc-line{display:block;width:1.5px;height:30px;background:rgba(15,29,69,.3)}
+.tc-clip{position:relative;z-index:3;display:block;width:22px;height:20px;margin-top:-2px;border-radius:7px 7px 10px 10px;background:linear-gradient(180deg,#d4d9e6,#a9b1c6);box-shadow:0 3px 6px -2px rgba(15,29,69,.35),inset 0 1px 0 rgba(255,255,255,.7)}
+.tc-clip::after{content:"";position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px 0 0 -3px;border-radius:50%;background:#7c859e}
+.tc-card{position:relative;z-index:1;width:100%;max-width:250px;margin-top:-12px;aspect-ratio:25/36;container-type:inline-size;perspective:1100px;cursor:pointer;outline:none;-webkit-tap-highlight-color:transparent}
+.tc-in{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .85s cubic-bezier(.2,.8,.2,1)}
+.tc.flip .tc-in{transform:rotateY(180deg)}
+.tc-face{position:absolute;inset:0;padding:6cqw;display:flex;flex-direction:column;border-radius:8.8cqw;overflow:hidden;-webkit-backface-visibility:hidden;backface-visibility:hidden;box-shadow:0 34px 50px -30px rgba(15,29,69,.5),inset 0 0 0 1px rgba(255,255,255,.8)}
+.tc-card:focus-visible .tc-front{outline:2px solid var(--blue);outline-offset:3px}
+.tc-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:4cqw;font-size:3.1cqw;line-height:1.2;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#8d93a8}
+
+.tc-front{background:linear-gradient(180deg,#f7f7f9,#ececf0)}
+.tc-photo{aspect-ratio:1/.95;border-radius:7cqw;overflow:hidden;background:radial-gradient(circle at 50% 28%,rgba(255,255,255,.5),transparent 65%),var(--bg)}
+.tc-photo svg,.tc-mini svg{width:100%;height:100%}
+.tc-photo img,.tc-mini img{width:100%;height:100%;object-fit:cover}
+.tc-name{margin-top:5cqw;font-size:7.6cqw;font-weight:600;line-height:1.1;letter-spacing:-.035em;color:#16171d}
+.tc-role{margin-top:1.4cqw;font-size:4.4cqw;color:#6b7088}
+.tc-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:3.6cqw;border-top:1px solid rgba(15,29,69,.1);font-size:3.2cqw;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:#2b2f45}
+.tc-go{display:grid;place-items:center;width:11cqw;height:11cqw;border-radius:50%;background:#14182b;color:#fff;transition:transform .3s ease}
+.tc-go svg{width:52%;height:52%}
+.tc-card:hover .tc-go{transform:rotate(45deg)}
+
+.tc-back{transform:rotateY(180deg);color:#232743;background:linear-gradient(135deg,#d6f3e6,#d5e3fb 28%,#e4d6f8 55%,#f8dcec 78%,#d3eef6);background-size:220% 220%;animation:tcHolo 9s ease-in-out infinite}
+.tc-back::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--mx,30%) var(--my,15%),rgba(255,255,255,.7),transparent 55%);opacity:.7}
+@keyframes tcHolo{0%,100%{background-position:0 0}50%{background-position:100% 100%}}
+.tc-flipi{display:grid;place-items:center;width:6cqw;height:6cqw;border-radius:50%;background:rgba(255,255,255,.7);color:#14182b}
+.tc-flipi svg{width:60%;height:60%}
+.tc-who{display:flex;align-items:center;gap:3.4cqw;margin-bottom:4cqw}
+.tc-mini{flex:none;width:15cqw;height:15cqw;border-radius:50%;overflow:hidden;background:var(--bg);box-shadow:0 0 0 1.1cqw rgba(255,255,255,.65)}
+.tc-who b{display:block;font-size:5.8cqw;font-weight:600;line-height:1.1;letter-spacing:-.03em}
+.tc-who small{display:block;margin-top:.8cqw;font-size:3.6cqw;line-height:1.25;color:#555d7e}
+.tc-bio{margin-bottom:4cqw;font-size:3.9cqw;line-height:1.45;color:#3b4262}
+.tc-lab{margin-bottom:1.4cqw;font-size:2.9cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7b83a3}
+.tc-pr li{padding:2cqw 0;border-top:1px solid rgba(35,39,67,.12);font-size:4cqw;font-weight:500}
+.tc-bot{display:flex;align-items:flex-end;justify-content:space-between;gap:3cqw;margin-top:auto;position:relative;z-index:1}
+.tc-mail{font-size:3.4cqw;font-weight:500;line-height:1.5;color:#2c3250;word-break:break-all}
+.tc-mail small{display:block;font-size:2.7cqw;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#7b83a3}
+.tc-qr{flex:none;width:22cqw;padding:1.6cqw;border-radius:2.4cqw;background:rgba(255,255,255,.88);color:#14182b}
+.tc-qr svg{width:100%;height:auto;fill:currentColor}
+
+@media (max-width:700px){
+  .team{padding:0 0 80px}
+  .team-board{gap:22px 0}
+  .tc{padding:0 5px}
+  .tc-bio{display:none}
+  .tc-meta{font-size:3.7cqw}
+  .tc-name{font-size:8.6cqw}
+  .tc-role{font-size:5.2cqw}
+  .tc-foot{font-size:3.8cqw}
+  .tc-who b{font-size:7cqw}
+  .tc-who small{font-size:4.6cqw}
+  .tc-lab{font-size:3.6cqw}
+  .tc-pr li{font-size:5.2cqw}
+  .tc-mail{font-size:4.4cqw}
+  .tc-mail small{font-size:3.4cqw}
+}
+
+.tc-name.long{font-size:4.9cqw;line-height:1.15}
+.tc-who b.long{font-size:4.2cqw;line-height:1.15}
+@media (max-width:700px){.tc-name.long{font-size:5.8cqw}.tc-who b.long{font-size:5cqw}}
+@media (max-width:700px){.tc-name{font-size:7.2cqw}}
