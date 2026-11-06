@@ -32,18 +32,28 @@
 .nf-brand img{height:34px;width:auto;object-fit:contain}
 .nf-inner{position:relative;z-index:6;max-width:520px}
 .nf-code{
-  font-size:clamp(64px,min(17vh,26vw),150px);
+  position:relative;
+  font-size:clamp(64px,min(20vh,28vw),170px);
   font-weight:500;
-  line-height:.9;
+  line-height:1;
+  height:.68em;
+  overflow:hidden;
   letter-spacing:-.07em;
-  background:linear-gradient(180deg,#1f3478 0%,#3b6fe0 55%,#8cb8ff 100%);
+  background:linear-gradient(180deg,#1f3478 0%,#3b6fe0 70%,#6aa4ff 100%);
   -webkit-background-clip:text;
   background-clip:text;
   -webkit-text-fill-color:transparent;
   color:transparent;
 }
+.nf-ground{
+  width:min(560px,86vw);
+  height:2px;
+  margin:0 auto;
+  border-radius:2px;
+  background:linear-gradient(90deg,transparent,rgba(31,52,120,.35) 18%,rgba(31,52,120,.35) 82%,transparent);
+}
 .nf-title{
-  margin-top:10px;
+  margin-top:22px;
   font-size:clamp(20px,min(3.6vh,5.5vw),30px);
   font-weight:500;
   letter-spacing:-.04em;
@@ -81,7 +91,6 @@
 }
 .nf-actions .btn{height:44px;font-size:13px}
 .nf-actions .btn-dark{padding:0 22px 0 7px}
-.nf-actions .btn-ghost{padding:0 24px}
 .nf-actions .btn-ico{width:30px;height:30px}
 @media (max-width:520px){
   .nf{padding:76px 20px 48px}
@@ -96,8 +105,8 @@
     <symbol id="arrow" viewBox="0 0 24 24">
       <path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
-    <symbol id="spark" viewBox="0 0 24 24">
-      <path d="M12 2c.6 5.4 4.6 9.4 10 10-5.4.6-9.4 4.6-10 10-.6-5.4-4.6-9.4-10-10 5.4-.6 9.4-4.6 10-10z" fill="currentColor"/>
+    <symbol id="back" viewBox="0 0 24 24">
+      <path d="M19 12H5M11 6l-6 6 6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
     </symbol>
   </defs>
 </svg>
@@ -114,15 +123,15 @@
 
   <div class="nf-inner">
     <div class="nf-code" aria-hidden="true">404</div>
+    <div class="nf-ground" aria-hidden="true"></div>
     <h1 class="nf-title" data-t="title">Halaman ini nyasar entah ke mana</h1>
     <p class="nf-text" data-t="text">Link yang kamu buka tidak ada atau sudah dipindahkan. Tenang, semua layanan kami masih ada di beranda.</p>
     <span class="nf-path" id="nfPath"></span>
     <div class="nf-actions">
       <a href="/" class="btn btn-dark">
-        <span class="btn-ico"><svg width="16" height="16"><use href="#spark"/></svg></span>
+        <span class="btn-ico"><svg width="16" height="16"><use href="#back"/></svg></span>
         <span data-t="home">Kembali ke beranda</span>
       </a>
-      <a href="/pricing" class="btn btn-ghost" data-t="price">Lihat harga</a>
     </div>
   </div>
 
@@ -135,8 +144,7 @@
   var EN = {
     title: 'This page got lost somewhere',
     text: 'The link you opened does not exist or has been moved. Do not worry, all our services are still on the homepage.',
-    home: 'Back to homepage',
-    price: 'See pricing'
+    home: 'Back to homepage'
   };
   var lang = 'id';
   try { lang = localStorage.getItem('viscode-lang') || 'id'; } catch (e) {}
