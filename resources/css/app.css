@@ -1,9 +1,71 @@
-@import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
-@source '../../storage/framework/views/*.php';
+:root {
+    --color-deep-navy: #17243B;
+    --color-electric-blue: #2563EB;
+    --color-creative-cyan: #22D3EE;
+    --color-pure-white: #FFFFFF;
+    --color-soft-grey: #F3F5F9;
+    --color-light-surface: #F8FAFC;
+    --color-charcoal: #172033;
+    --color-secondary-text: #64748B;
+    --color-border: #E2E8F0;
+    --color-success: #16A34A;
+    --color-warning: #D97706;
+    --color-danger: #DC2626;
+    --color-info: #0284C7;
+}
 
-@theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+body {
+    background-color: var(--color-soft-grey);
+    color: var(--color-charcoal);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Standardized Form Controls Across All Modals & Pages */
+@layer base {
+    input[type="text"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="date"],
+    input[type="password"],
+    select {
+        min-height: 44px;
+        padding: 0.625rem 0.875rem;
+        font-size: 0.875rem;
+        line-height: 1.375rem;
+        border-radius: 0.75rem;
+    }
+
+    textarea {
+        padding: 0.65rem 0.875rem;
+        font-size: 0.875rem;
+        line-height: 1.45rem;
+        border-radius: 0.75rem;
+    }
+
+    form label {
+        line-height: 1.35;
+        word-break: normal;
+        overflow-wrap: break-word;
+    }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #F3F5F9;
+}
+::-webkit-scrollbar-thumb {
+    background: #CBD5E1;
+    border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94A3B8;
 }
