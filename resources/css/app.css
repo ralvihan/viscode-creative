@@ -38,6 +38,7 @@ body {
         font-size: 0.875rem;
         line-height: 1.375rem;
         border-radius: 0.75rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
     }
 
     textarea {
@@ -45,6 +46,7 @@ body {
         font-size: 0.875rem;
         line-height: 1.45rem;
         border-radius: 0.75rem;
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
     }
 
     form label {
@@ -52,6 +54,196 @@ body {
         word-break: normal;
         overflow-wrap: break-word;
     }
+}
+
+/* ========================================================= */
+/* UI MICRO-ANIMATIONS & MODERN LUXURY INTERACTIONS          */
+/* ========================================================= */
+@keyframes vcFadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes vcPopIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(6px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.vc-page-enter {
+    animation: vcFadeInUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.vc-swal-show {
+    animation: vcPopIn 0.22s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* Subtle interactive lift for cards and buttons */
+button:not(:disabled),
+a[class*="rounded-xl"],
+a[class*="rounded-2xl"] {
+    transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+button:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+/* ========================================================= */
+/* SELECT2 MODERN LUXURY SAAS TAILWIND THEME                 */
+/* ========================================================= */
+.select2-container {
+    width: 100% !important;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.875rem;
+}
+
+.select2-container--default .select2-selection--single {
+    min-height: 44px !important;
+    height: auto !important;
+    padding: 0.45rem 2.25rem 0.45rem 0.875rem !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 0.75rem !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 1px 2px 0 rgba(15, 23, 42, 0.04) !important;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
+}
+
+.select2-container--default .select2-selection--single:hover {
+    border-color: #94A3B8 !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single,
+.select2-container--default.select2-container--focus .select2-selection--single {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.18) !important;
+    outline: none !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+    color: #0F172A !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    line-height: 1.35rem !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    white-space: normal !important;
+    word-break: break-word !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__placeholder {
+    color: #94A3B8 !important;
+    font-weight: 400 !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+    height: 100% !important;
+    top: 0 !important;
+    right: 0.65rem !important;
+    width: 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+    border-color: #64748B transparent transparent transparent !important;
+    border-width: 5px 4px 0 4px !important;
+    transition: transform 0.2s ease !important;
+}
+
+.select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b {
+    border-color: transparent transparent #2563EB transparent !important;
+    border-width: 0 4px 5px 4px !important;
+}
+
+/* Dark theme Select2 variant (e.g. inside dark banners) */
+.vc-select2-dark + .select2-container .select2-selection--single {
+    background-color: #17243B !important;
+    border-color: rgba(255, 255, 255, 0.22) !important;
+    min-height: 36px !important;
+    padding: 0.3rem 2rem 0.3rem 0.75rem !important;
+}
+.vc-select2-dark + .select2-container .select2-selection--single .select2-selection__rendered {
+    color: #FFFFFF !important;
+    font-size: 0.75rem !important;
+    font-weight: 600 !important;
+}
+.vc-select2-dark + .select2-container .select2-selection--single .select2-selection__arrow b {
+    border-color: #22D3EE transparent transparent transparent !important;
+}
+
+/* Select2 Dropdown Menu */
+.select2-dropdown {
+    background-color: #FFFFFF !important;
+    border: 1px solid #E2E8F0 !important;
+    border-radius: 0.875rem !important;
+    box-shadow: 0 18px 36px -8px rgba(15, 23, 42, 0.16), 0 4px 12px -2px rgba(15, 23, 42, 0.08) !important;
+    overflow: hidden !important;
+    z-index: 99999 !important;
+    margin-top: 4px !important;
+    animation: vcPopIn 0.16s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.select2-search--dropdown {
+    padding: 0.5rem !important;
+    background-color: #F8FAFC !important;
+    border-bottom: 1px solid #F1F5F9 !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    border: 1px solid #CBD5E1 !important;
+    border-radius: 0.625rem !important;
+    padding: 0.45rem 0.75rem !important;
+    font-size: 0.8125rem !important;
+    color: #0F172A !important;
+    background-color: #FFFFFF !important;
+    outline: none !important;
+    min-height: 36px !important;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field:focus {
+    border-color: #2563EB !important;
+    box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15) !important;
+}
+
+.select2-results__options {
+    padding: 0.375rem !important;
+    max-height: 240px !important;
+}
+
+.select2-results__option {
+    padding: 0.5rem 0.75rem !important;
+    border-radius: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    color: #334155 !important;
+    margin-bottom: 2px !important;
+    transition: background-color 0.12s ease, color 0.12s ease !important;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #EFF6FF !important;
+    color: #1D4ED8 !important;
+    font-weight: 600 !important;
+}
+
+.select2-container--default .select2-results__option--selected {
+    background-color: #2563EB !important;
+    color: #FFFFFF !important;
+    font-weight: 600 !important;
 }
 
 /* Custom Scrollbar */

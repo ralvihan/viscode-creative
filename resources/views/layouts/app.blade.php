@@ -75,7 +75,32 @@
                             confirmButtonColor: '#2563EB',
                             customClass: {
                                 popup: 'rounded-2xl border border-slate-200 shadow-xl font-sans',
-                                confirmButton: 'px-5 py-2.5 rounded-xl font-semibold text-sm shadow-sm cursor-pointer'
+                                confirmButton: 'px-5 py-2.5 rounded-xl font-semibold text-sm bg-blue-600 text-white shadow-sm cursor-pointer'
+                            },
+                            buttonsStyling: false
+                        });
+                    }
+                });
+            </script>
+        @endif
+
+        @if($errors->any())
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (window.Swal) {
+                        const errorItems = @js($errors->all());
+                        const htmlList = '<ul class="text-left list-disc list-inside space-y-1 text-xs text-rose-700 bg-rose-50 p-3.5 rounded-xl border border-rose-200">' +
+                            errorItems.map(e => `<li>${e}</li>`).join('') +
+                            '</ul>';
+                        Swal.fire({
+                            icon: 'warning',
+                            title: 'Validasi Data Gagal',
+                            html: '<p class="text-xs text-slate-600 mb-3">Mohon periksa kembali isian formulir berikut:</p>' + htmlList,
+                            confirmButtonText: 'Mengerti, Perbaiki Data',
+                            customClass: {
+                                popup: 'rounded-2xl border border-slate-200 shadow-2xl p-6 font-sans',
+                                title: 'text-slate-900 font-bold text-lg',
+                                confirmButton: 'px-5 py-2.5 rounded-xl font-semibold text-sm bg-blue-600 hover:bg-blue-700 text-white shadow-sm cursor-pointer'
                             },
                             buttonsStyling: false
                         });

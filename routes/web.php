@@ -30,8 +30,9 @@ Route::post('/public/contact-lead', [LeadController::class, 'publicStore'])->nam
 
 // Authenticated Internal System
 Route::middleware(['auth', 'verified'])->group(function () {
-    // 1. Dashboard
+    // 1. Dashboard & System Flow Guide
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::view('/workflow-guide', 'workflow-guide.index')->name('workflow-guide.index');
 
     // 2. Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');

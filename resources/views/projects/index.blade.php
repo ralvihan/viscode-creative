@@ -1,5 +1,6 @@
 <x-app-layout x-data="{ 
     activeTab: '{{ request('tab', 'projects') }}',
+    projectStageFilter: 'all',
     openCreateProject: false, 
     openProjectDetail: false, 
     openAddTask: false,
@@ -89,7 +90,52 @@
             <!-- ===================================================== -->
             <!-- TAB 1: PROJECTS                                       -->
             <!-- ===================================================== -->
-            <div x-show="activeTab === 'projects'" class="overflow-x-auto">
+            @php
+                $prjCol = $projects->getCollection();
+                $prjNewCount = $prjCol->where('status', 'NOT_STARTED')->count();
+                $prjActiveCount = $prjCol->whereIn('status', ['IN_PROGRESS', 'REVISION'])->count();
+                $prjReviewCount = $prjCol->where('status', 'REVIEW')->count();
+                $prjDoneCount = $prjCol->where('status', 'COMPLETED')->count();
+            @endphp
+            <div x-show="activeTab === 'projects'">
+                <div class="px-4 py-3 border-b border-slate-100 bg-white flex items-center gap-1.5 overflow-x-auto">
+                    <button type="button" @click="projectStageFilter = 'all'"
+                            :class="projectStageFilter === 'all' ? 'bg-slate-800 text-white shadow-2xs' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                            class="px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                        <span>Semua Proyek</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="projectStageFilter === 'all' ? 'bg-slate-600 text-white' : 'bg-slate-200 text-slate-700'">{{ $projects->total() }}</span>
+                    </button>
+
+                    <button type="button" @click="projectStageFilter = 'new'"
+                            :class="projectStageFilter === 'new' ? 'bg-blue-600 text-white shadow-2xs' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                            class="px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                        <span>1. Baru / Belum Dikerjakan (NEW)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="projectStageFilter === 'new' ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-700'">{{ $prjNewCount }}</span>
+                    </button>
+
+                    <button type="button" @click="projectStageFilter = 'in_progress'"
+                            :class="projectStageFilter === 'in_progress' ? 'bg-amber-600 text-white shadow-2xs' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                            class="px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                        <span>2. Sedang Berjalan (IN PROGRESS)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="projectStageFilter === 'in_progress' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-700'">{{ $prjActiveCount }}</span>
+                    </button>
+
+                    <button type="button" @click="projectStageFilter = 'review'"
+                            :class="projectStageFilter === 'review' ? 'bg-indigo-600 text-white shadow-2xs' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                            class="px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                        <span>3. Menunggu QC (REVIEW)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="projectStageFilter === 'review' ? 'bg-indigo-500 text-white' : 'bg-indigo-50 text-indigo-700'">{{ $prjReviewCount }}</span>
+                    </button>
+
+                    <button type="button" @click="projectStageFilter = 'completed'"
+                            :class="projectStageFilter === 'completed' ? 'bg-emerald-600 text-white shadow-2xs' : 'bg-slate-50 text-slate-600 hover:bg-slate-100 border border-slate-200'"
+                            class="px-3 py-1.5 rounded-xl text-[11px] font-bold transition flex items-center gap-1.5 whitespace-nowrap cursor-pointer">
+                        <span>4. Selesai (COMPLETED)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="projectStageFilter === 'completed' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-700'">{{ $prjDoneCount }}</span>
+                    </button>
+                </div>
+
+                <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="border-b border-slate-100 text-[11px] uppercase font-bold tracking-wider text-slate-500 bg-slate-50/70">
@@ -107,8 +153,15 @@
                             $doneTasks = $prj->tasks->where('status', 'DONE')->count();
                             $totalTasks = $prj->tasks->count();
                             $allTasksDone = $totalTasks > 0 && $doneTasks === $totalTasks;
+                            $prjFilterGroup = match($prj->status) {
+                                'NOT_STARTED' => 'new',
+                                'IN_PROGRESS', 'REVISION' => 'in_progress',
+                                'REVIEW' => 'review',
+                                'COMPLETED' => 'completed',
+                                default => 'other',
+                            };
                         @endphp
-                        <tr class="hover:bg-slate-50/80 transition-colors">
+                        <tr x-show="projectStageFilter === 'all' || projectStageFilter === '{{ $prjFilterGroup }}'" class="hover:bg-slate-50/80 transition-colors">
                             <td class="py-3.5 px-4 font-mono font-bold text-blue-600">
                                 {{ $prj->project_code }}
                                 <div class="text-[10px] text-slate-400 font-normal">Order: {{ $prj->order->order_code }}</div>
@@ -213,6 +266,7 @@
                 @if($projects->hasPages())
                     <div class="p-4 border-t border-slate-100 bg-slate-50/50">{{ $projects->links() }}</div>
                 @endif
+                </div>
             </div>
 
             <!-- ===================================================== -->

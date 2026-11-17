@@ -29,6 +29,9 @@
             this.$refs.custName.value = cust.name;
             this.$refs.custPhone.value = cust.phone;
             this.$refs.custType.value = cust.type;
+            if (window.jQuery) {
+                window.jQuery(this.$refs.custType).trigger('change.select2');
+            }
         }
     }
 }">
@@ -136,36 +139,36 @@
                     <button type="button" @click="activeFilter = 'all'"
                             :class="activeFilter === 'all' ? 'bg-slate-900 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
                             class="px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer">
-                        <span>All Records</span>
-                        <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="activeFilter === 'all' ? 'bg-slate-700 text-white' : 'bg-slate-100 text-slate-600'">{{ $allRecordsCount }}</span>
+                        <span>Semua Proyek &amp; Penawaran</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="activeFilter === 'all' ? 'bg-slate-700 text-white' : 'bg-slate-100 text-slate-600'">{{ $allRecordsCount }}</span>
                     </button>
 
                     <button type="button" @click="activeFilter = 'waiting_response'"
                             :class="activeFilter === 'waiting_response' ? 'bg-blue-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
                             class="px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer">
-                        <span>Waiting for Response</span>
-                        <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="activeFilter === 'waiting_response' ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-700'">{{ $waitingResponseCount }}</span>
+                        <span>1. Waiting for Response (Quotation)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="activeFilter === 'waiting_response' ? 'bg-blue-500 text-white' : 'bg-blue-50 text-blue-700'">{{ $waitingResponseCount }}</span>
                     </button>
 
                     <button type="button" @click="activeFilter = 'waiting_payment'"
                             :class="activeFilter === 'waiting_payment' ? 'bg-amber-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
                             class="px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer">
-                        <span>Waiting for Payment</span>
-                        <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="activeFilter === 'waiting_payment' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-700'">{{ $waitingPaymentCount }}</span>
+                        <span>2. Belum Dikerjakan / Menunggu DP (NEW)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="activeFilter === 'waiting_payment' ? 'bg-amber-500 text-white' : 'bg-amber-50 text-amber-700'">{{ $waitingPaymentCount }}</span>
                     </button>
 
                     <button type="button" @click="activeFilter = 'active'"
                             :class="activeFilter === 'active' ? 'bg-indigo-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
                             class="px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer">
-                        <span>Confirmed / Active</span>
-                        <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="activeFilter === 'active' ? 'bg-indigo-500 text-white' : 'bg-indigo-50 text-indigo-700'">{{ $activeOrdersTabCount }}</span>
+                        <span>3. Sedang Berjalan (Active)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="activeFilter === 'active' ? 'bg-indigo-500 text-white' : 'bg-indigo-50 text-indigo-700'">{{ $activeOrdersTabCount }}</span>
                     </button>
 
                     <button type="button" @click="activeFilter = 'completed'"
                             :class="activeFilter === 'completed' ? 'bg-emerald-600 text-white shadow-xs' : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200'"
                             class="px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 whitespace-nowrap cursor-pointer">
-                        <span>Completed</span>
-                        <span class="px-1.5 py-0.5 rounded-full text-[10px]" :class="activeFilter === 'completed' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-700'">{{ $completedOrdersTabCount }}</span>
+                        <span>4. Selesai (Completed)</span>
+                        <span class="px-1.5 py-0.5 rounded-full text-[10px] font-mono" :class="activeFilter === 'completed' ? 'bg-emerald-500 text-white' : 'bg-emerald-50 text-emerald-700'">{{ $completedOrdersTabCount }}</span>
                     </button>
                 </div>
 

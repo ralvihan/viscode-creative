@@ -501,6 +501,7 @@ class VcbmsWorkflowTest extends TestCase
             'documentations.index',
             'transactions.index',
             'activity-logs.index',
+            'workflow-guide.index',
         ];
 
         foreach ($routes as $route) {
