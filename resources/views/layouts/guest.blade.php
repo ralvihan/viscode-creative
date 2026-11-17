@@ -6,6 +6,8 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Viscode Creative') }} - Business Management System</title>
+        <link rel="icon" type="image/png" href="{{ asset('assets/favicon.png') }}">
+        <link rel="apple-touch-icon" href="{{ asset('assets/favicon.png') }}">
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,16 +19,10 @@
     </head>
     <body class="font-sans text-slate-800 bg-[#F3F5F9] antialiased min-h-full flex flex-col justify-center items-center py-12 px-4 sm:px-6 lg:px-8">
         <div class="w-full sm:max-w-md text-center mb-6">
-            <a href="/" class="inline-flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-blue-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 transition-transform duration-200">
-                    <span class="font-bold text-white text-xl">V</span>
-                </div>
-                <div class="text-left">
-                    <span class="font-black text-xl tracking-tight text-slate-900">VISCODE</span>
-                    <span class="font-bold text-xs uppercase tracking-widest text-blue-600 block -mt-1">Business System</span>
-                </div>
+            <a href="/" class="inline-flex flex-col items-center gap-2 group">
+                <img src="{{ asset('assets/logo.png') }}" alt="Viscode Creative" class="h-14 w-auto object-contain group-hover:scale-105 transition-transform duration-200">
             </a>
-            <p class="text-xs text-slate-500 mt-2">Viscode Creative — Modern Luxury SaaS Dashboard</p>
+            <p class="text-xs text-slate-500 mt-2 font-medium">Business Management System (VC-BMS)</p>
         </div>
 
         <div class="w-full sm:max-w-md bg-white border border-slate-200 shadow-xl rounded-2xl p-8">

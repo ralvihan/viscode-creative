@@ -17,18 +17,20 @@
        }"
        @click.outside="sidebarOpen = false">
 
-    <!-- Header Logo -->
-    <div class="h-16 flex items-center justify-between px-5 border-b border-[#1E2E4A]">
-        <a href="{{ route('dashboard') }}" class="flex items-center gap-3 overflow-hidden group">
-            <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#2563EB] to-[#22D3EE] flex items-center justify-center shrink-0 shadow-md shadow-blue-900/30 group-hover:scale-105 transition-transform duration-200">
-                <span class="text-white font-black text-sm tracking-tighter">VC</span>
+    <!-- Header Logo (Using Official Landing Page Logo) -->
+    <div class="h-16 flex items-center justify-between px-3.5 border-b border-[#1E2E4A]">
+        <a href="{{ route('dashboard') }}" class="flex items-center justify-center flex-1 overflow-hidden group">
+            <!-- Expanded Full Logo -->
+            <div x-show="!sidebarCollapsed" class="w-full bg-white rounded-xl px-3 py-1.5 flex items-center justify-between shadow-sm group-hover:shadow transition-all">
+                <img src="{{ asset('assets/logo.png') }}" alt="Viscode Creative" class="h-8 w-auto object-contain">
+                <span class="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#17243B] text-[#22D3EE] shrink-0">BMS</span>
             </div>
-            <div x-show="!sidebarCollapsed" class="transition-opacity duration-200">
-                <span class="font-bold text-base text-white tracking-tight">VISCODE<span class="text-[#22D3EE]">.</span></span>
-                <span class="ml-1.5 text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-950/80 text-[#22D3EE] border border-cyan-800/50">BMS</span>
+            <!-- Collapsed Icon Logo -->
+            <div x-show="sidebarCollapsed" style="display: none;" class="w-10 h-10 bg-white rounded-xl p-1.5 flex items-center justify-center shadow-sm group-hover:scale-105 transition-transform">
+                <img src="{{ asset('assets/favicon.png') }}" alt="VC" class="w-full h-full object-contain">
             </div>
         </a>
-        <button type="button" @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white p-1">
+        <button type="button" @click="sidebarOpen = false" class="lg:hidden text-slate-400 hover:text-white p-1 ml-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
     </div>
