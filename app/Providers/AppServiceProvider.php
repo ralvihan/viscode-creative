@@ -12,8 +12,10 @@ use App\Models\Project;
 use App\Models\PurchaseRequest;
 use App\Models\Quotation;
 use App\Models\Service;
+use App\Models\SystemNotification;
 use App\Models\Task;
 use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\View;
@@ -42,6 +44,50 @@ class AppServiceProvider extends ServiceProvider
             }
 
             $view->with('navCounts', $cachedNavCounts);
+        });
+
+        View::composer('layouts.topbar', function ($view): void {
+            if (! Auth::check() || ! Schema::hasTable('system_notifications')) {
+                $view->with([
+                    'topbarNotifications' => collect(),
+                    'topbarUnreadCount' => 0,
+                    'notificationCategories' => SystemNotification::categoryDefinitions(),
+                ]);
+
+                return;
+            }
+
+            $userId = Auth::id();
+            $notifications = SystemNotification::with('actor')
+                ->where('user_id', $userId)
+                ->latest('id')
+                ->take(30)
+                ->get()
+                ->map(function (SystemNotification $item): array {
+                    return [
+                        'id' => $item->id,
+                        'category' => $item->category,
+                        'module' => $item->module,
+                        'title' => $item->title,
+                        'message' => $item->message,
+                        'action_url' => $item->action_url ?: route('dashboard'),
+                        'visit_url' => route('notifications.visit', $item),
+                        'read_url' => route('notifications.read', $item),
+                        'delete_url' => route('notifications.destroy', $item),
+                        'is_unread' => $item->read_at === null,
+                        'time_ago' => $item->created_at ? $item->created_at->diffForHumans() : 'Baru saja',
+                        'actor_name' => $item->actor?->name ?? 'Sistem / Publik',
+                    ];
+                })
+                ->values();
+
+            $unreadCount = SystemNotification::where('user_id', $userId)->unread()->count();
+
+            $view->with([
+                'topbarNotifications' => $notifications,
+                'topbarUnreadCount' => $unreadCount,
+                'notificationCategories' => SystemNotification::categoryDefinitions(),
+            ]);
         });
     }
 
@@ -74,6 +120,9 @@ class AppServiceProvider extends ServiceProvider
             'reports_pending' => 0,
             'sidebar_finance_badge' => 0,
             'dashboard_attention' => 0,
+            'users_total' => 0,
+            'roles_total' => 0,
+            'master_total' => 0,
         ];
 
         if (! Auth::check() || ! Schema::hasTable('orders')) {
@@ -156,6 +205,10 @@ class AppServiceProvider extends ServiceProvider
         $sidebarFinanceBadge = $paymentsPending + $purchasesActive + $reportsPending;
         $dashboardAttention = $ordersActive + $leadsNew + $projectsActive + $paymentsPending + $purchasesActive;
 
+        $usersTotal = User::count();
+        $rolesTotal = count(User::roleDefinitions());
+        $masterTotal = $usersTotal + $servicesTotal + $customersTotal;
+
         return [
             'orders_active' => $ordersActive,
             'orders_waiting_payment' => $ordersWaitingPayment,
@@ -178,6 +231,9 @@ class AppServiceProvider extends ServiceProvider
             'reports_pending' => $reportsPending,
             'sidebar_finance_badge' => $sidebarFinanceBadge,
             'dashboard_attention' => $dashboardAttention,
+            'users_total' => $usersTotal,
+            'roles_total' => $rolesTotal,
+            'master_total' => $masterTotal,
         ];
     }
 }

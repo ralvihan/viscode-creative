@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Customer;
+use App\Models\Lead;
 use App\Models\MonthlyReport;
 use App\Models\Order;
+use App\Models\Project;
+use App\Models\Quotation;
 use App\Models\Transaction;
 use App\Services\Workflow\ReportWorkflowService;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -13,7 +16,12 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    private function getMonthlyData($month, $year)
+    /**
+     * Gather comprehensive monthly financial & operational metrics.
+     *
+     * @return array<string, mixed>
+     */
+    private function getMonthlyData(int $month, int $year): array
     {
         $incomes = Transaction::with('order.customer')
             ->where('type', 'income')
@@ -31,14 +39,52 @@ class ReportController extends Controller
         $totalIncome = (float) $incomes->sum('amount');
         $totalExpense = (float) $expenses->sum('amount');
         $netProfit = $totalIncome - $totalExpense;
+        $profitMargin = $totalIncome > 0 ? round(($netProfit / $totalIncome) * 100, 1) : 0.0;
 
+        $leadsIn = Lead::whereMonth('created_at', $month)->whereYear('created_at', $year)->count();
+        $quotationsCreated = Quotation::whereMonth('created_at', $month)->whereYear('created_at', $year)->count();
         $ordersIn = Order::whereMonth('created_at', $month)->whereYear('created_at', $year)->count();
-        $ordersCompleted = Order::where('status', Order::STATUS_COMPLETED)->whereMonth('updated_at', $month)->whereYear('updated_at', $year)->count();
+        $ordersCompleted = Order::where('status', Order::STATUS_COMPLETED)
+            ->whereMonth('updated_at', $month)
+            ->whereYear('updated_at', $year)
+            ->count();
+        $activeProjects = Project::whereIn('status', [
+            Project::STATUS_NOT_STARTED,
+            Project::STATUS_IN_PROGRESS,
+            Project::STATUS_REVIEW,
+            Project::STATUS_REVISION,
+        ])->count();
         $newCustomers = Customer::whereMonth('created_at', $month)->whereYear('created_at', $year)->count();
 
-        $periodName = Carbon::createFromDate($year, $month, 1)->translatedFormat('F Y');
+        $outstandingReceivables = (float) Order::with('payments')
+            ->where('status', '!=', Order::STATUS_CANCELLED)
+            ->where('payment_status', '!=', Order::PAYMENT_PAID)
+            ->get()
+            ->sum(fn (Order $order): float => $order->remainingBalance());
 
-        return compact('incomes', 'expenses', 'totalIncome', 'totalExpense', 'netProfit', 'ordersIn', 'ordersCompleted', 'newCustomers', 'periodName', 'month', 'year');
+        $completionRate = $ordersIn > 0 ? round(($ordersCompleted / $ordersIn) * 100, 1) : ($ordersCompleted > 0 ? 100.0 : 0.0);
+
+        $periodName = Carbon::createFromDate($year, $month, 1)->locale('id')->translatedFormat('F Y');
+
+        return compact(
+            'incomes',
+            'expenses',
+            'totalIncome',
+            'totalExpense',
+            'netProfit',
+            'profitMargin',
+            'leadsIn',
+            'quotationsCreated',
+            'ordersIn',
+            'ordersCompleted',
+            'activeProjects',
+            'newCustomers',
+            'outstandingReceivables',
+            'completionRate',
+            'periodName',
+            'month',
+            'year'
+        );
     }
 
     public function index(Request $request, ReportWorkflowService $workflow)
@@ -101,16 +147,27 @@ class ReportController extends Controller
 
     public function exportPdf(Request $request)
     {
+        abort_if(! auth()->user()->canAccessModule('reports'), 403, 'Anda tidak memiliki hak akses modul Laporan.');
+
         $month = (int) $request->input('month', Carbon::now()->month);
         $year = (int) $request->input('year', Carbon::now()->year);
-        $evaluation = $request->input('evaluation', 'Operasional berjalan lancar sesuai target bulanan kelompok.');
+        $evaluation = trim((string) $request->input('evaluation', ''));
+        if ($evaluation === '') {
+            $evaluation = 'Operasional bisnis Viscode Creative berjalan dengan baik sesuai rencana kerja bulanan. Tim berfokus pada peningkatan kualitas layanan, ketepatan waktu penyelesaian proyek, serta pengelolaan arus kas usaha secara transparan.';
+        }
 
         $data = $this->getMonthlyData($month, $year);
         $data['evaluation'] = $evaluation;
         $data['report'] = MonthlyReport::where('month', $month)->where('year', $year)->first();
+        $data['printedAt'] = Carbon::now()->locale('id')->translatedFormat('d F Y, H:i').' WIB';
+
+        $logoPath = public_path('assets/logo.png');
+        $data['logoBase64'] = is_file($logoPath)
+            ? 'data:image/png;base64,'.base64_encode((string) file_get_contents($logoPath))
+            : null;
 
         $pdf = Pdf::loadView('reports.pdf', $data)->setPaper('a4', 'portrait');
 
-        return $pdf->download('Laporan-Bulanan-Viscode-'.$data['periodName'].'.pdf');
+        return $pdf->download('Laporan-Bulanan-Viscode-Creative-'.str_replace(' ', '-', $data['periodName']).'.pdf');
     }
 }

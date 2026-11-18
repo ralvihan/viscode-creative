@@ -508,5 +508,10 @@ class VcbmsWorkflowTest extends TestCase
             $response = $this->actingAs($superAdmin)->get(route($route));
             $response->assertStatus(200);
         }
+
+        // Verify Executive Corporate Monthly Report PDF renders and downloads cleanly
+        $pdfResponse = $this->actingAs($superAdmin)->get(route('reports.pdf'));
+        $pdfResponse->assertOk();
+        $pdfResponse->assertHeader('content-type', 'application/pdf');
     }
 }

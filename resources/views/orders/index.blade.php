@@ -87,12 +87,20 @@
         <!-- TAB: SERVICES & PACKAGES                                  -->
         <!-- ========================================================= -->
         <div x-show="mainTab === 'services'" x-cloak class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm space-y-5">
-            <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
                 <div>
                     <h3 class="font-bold text-slate-900 text-base">Katalog Layanan & Paket Standar Viscode Creative</h3>
-                    <p class="text-xs text-slate-500 mt-0.5">Daftar paket layanan aktif yang otomatis direferensikan saat membuat Penawaran maupun Pesanan</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Referensi paket layanan aktif yang otomatis dipakai saat membuat Penawaran maupun Pesanan</p>
                 </div>
-                <span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">{{ $services->count() }} Paket Aktif</span>
+                <div class="flex items-center gap-2">
+                    <span class="px-3 py-1.5 rounded-full bg-blue-50 text-blue-700 text-xs font-bold border border-blue-200">{{ $services->count() }} Paket Aktif</span>
+                    @if(Auth::user()->canAccessModule('master_data'))
+                        <a href="{{ route('master.index', ['tab' => 'services']) }}" class="px-3.5 py-1.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl transition flex items-center gap-1.5">
+                            <span>Kelola di Master Data</span>
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+                        </a>
+                    @endif
+                </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

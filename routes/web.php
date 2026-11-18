@@ -5,6 +5,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DocumentationController;
 use App\Http\Controllers\LeadController;
+use App\Http\Controllers\MasterManagementController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
@@ -33,6 +35,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // 1. Dashboard & System Flow Guide
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::view('/workflow-guide', 'workflow-guide.index')->name('workflow-guide.index');
+
+    // 1b. In-App System Notifications (Static routes MUST precede {notification} binding)
+    Route::post('/notifications/read-all', [NotificationController::class, 'markAllRead'])->name('notifications.read-all');
+    Route::delete('/notifications/clear-all', [NotificationController::class, 'clearAll'])->name('notifications.clear-all');
+    Route::get('/notifications/{notification}/visit', [NotificationController::class, 'visit'])->name('notifications.visit');
+    Route::post('/notifications/{notification}/read', [NotificationController::class, 'markRead'])->name('notifications.read');
+    Route::delete('/notifications/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 
     // 2. Customers
     Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
@@ -111,7 +120,20 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reports/{report}/finalize', [ReportController::class, 'finalize'])->name('reports.finalize');
     Route::get('/reports/export-pdf', [ReportController::class, 'exportPdf'])->name('reports.pdf');
 
-    // 12. Activity Logs (Audit Trail)
+    // 12. Master Data & User Management (Super Admin & CEO)
+    Route::get('/master-management', [MasterManagementController::class, 'index'])->name('master.index');
+    Route::post('/master-management/users', [MasterManagementController::class, 'storeUser'])->name('master.users.store');
+    Route::put('/master-management/users/{user}', [MasterManagementController::class, 'updateUser'])->name('master.users.update');
+    Route::delete('/master-management/users/{user}', [MasterManagementController::class, 'destroyUser'])->name('master.users.destroy');
+
+    Route::post('/master-management/services', [MasterManagementController::class, 'storeService'])->name('master.services.store');
+    Route::put('/master-management/services/{service}', [MasterManagementController::class, 'updateService'])->name('master.services.update');
+    Route::post('/master-management/services/{service}/toggle', [MasterManagementController::class, 'toggleService'])->name('master.services.toggle');
+    Route::delete('/master-management/services/{service}', [MasterManagementController::class, 'destroyService'])->name('master.services.destroy');
+
+    Route::delete('/master-management/customers/{customer}', [MasterManagementController::class, 'destroyCustomer'])->name('master.customers.destroy');
+
+    // 13. Activity Logs (Audit Trail)
     Route::get('/activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
 
     // 13. Super Admin Status Override

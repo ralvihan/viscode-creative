@@ -210,7 +210,47 @@
         </div>
         @endif
 
-        <!-- 5. SYSTEM FLOW & NAVIGATION GUIDE (Bottom Tracking Menu for All Users) -->
+        <!-- 5. MASTER DATA & USER MANAGEMENT (Non-Transactional Master Records) -->
+        @if(Auth::user()->canAccessModule('master_data'))
+        @php
+            $isMaster = request()->routeIs('master.*');
+            $masterCount = $counts['users_total'] ?? 0;
+        @endphp
+        <div>
+            <div x-show="!sidebarCollapsed" class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 flex items-center justify-between">
+                <span>5. Master &amp; User</span>
+                <span class="text-[9px] font-mono text-slate-500">{{ $counts['roles_total'] ?? 9 }} role</span>
+            </div>
+            <a href="{{ route('master.index') }}"
+               class="relative flex items-center justify-between gap-2 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 group {{ $isMaster ? 'bg-[#2563EB] text-white shadow-md shadow-blue-900/30' : 'text-slate-300 hover:text-white hover:bg-[#1E2E4A] hover:translate-x-0.5' }}"
+               title="Master & User Management: Users, Roles RBAC, Layanan & Paket, Pelanggan, dan Referensi Sistem">
+                <div class="flex items-center gap-3 min-w-0">
+                    <div class="relative shrink-0">
+                        <svg class="w-4 h-4 {{ $isMaster ? 'text-white' : 'text-slate-400 group-hover:text-[#22D3EE]' }} transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                        @if($masterCount > 0)
+                            <span x-show="sidebarCollapsed" class="absolute -top-2 -right-2 min-w-[16px] h-4 px-1 rounded-full bg-indigo-500 text-white text-[9px] font-bold flex items-center justify-center shadow">
+                                {{ $masterCount }}
+                            </span>
+                        @endif
+                    </div>
+                    <div x-show="!sidebarCollapsed" class="truncate">
+                        <div>Master &amp; User Data</div>
+                        <div class="text-[10px] font-normal {{ $isMaster ? 'text-blue-100' : 'text-slate-400' }}">Users, Role, Layanan &amp; Klien</div>
+                    </div>
+                </div>
+
+                @if($masterCount > 0)
+                    <span x-show="!sidebarCollapsed"
+                          class="shrink-0 min-w-[22px] h-5 px-1.5 rounded-full text-[10px] font-mono font-bold flex items-center justify-center transition-all {{ $isMaster ? 'bg-white text-[#2563EB] shadow-2xs' : 'bg-indigo-500/20 text-indigo-300 border border-indigo-400/30 group-hover:bg-indigo-500 group-hover:text-white' }}"
+                          title="{{ $counts['users_total'] ?? 0 }} Users, {{ $counts['services_total'] ?? 0 }} Layanan, {{ $counts['customers_total'] ?? 0 }} Pelanggan">
+                        {{ $masterCount }}
+                    </span>
+                @endif
+            </a>
+        </div>
+        @endif
+
+        <!-- 6. SYSTEM FLOW & NAVIGATION GUIDE (Bottom Tracking Menu for All Users) -->
         <div class="pt-3 border-t border-[#1E2E4A]">
             <div x-show="!sidebarCollapsed" class="px-3 mb-1.5 text-[10px] font-bold uppercase tracking-wider text-[#22D3EE]">
                 Panduan Penggunaan Sistem
